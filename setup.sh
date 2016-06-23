@@ -3,3 +3,4 @@
 # TBC
 echo "export PYTHONPATH=$PYTHONPATH:~/v2/python-code" >> ~/.profile
 source ~/.profile
+mv /home/pi/v2/misc/sample_data.json /home/pi/v2/python-code/sample_data.json
