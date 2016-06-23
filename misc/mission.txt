@@ -1,0 +1,1 @@
+{"y": 19, "x": 29, "methane": 0.0, "temperature": -80.0, "humidity": 0.0}

@@ -1,0 +1,26 @@
+This code is design for the PiBot multi-media robot based on the Raspberry Pi.
+The robot is compatible with Raspberry Pi with the new 40pin GPIO interface.
+As of mid 2016 this includes Raspberry Pi's A+, B+, B2, B3 and Zero.
+
+PiBot is moduler. The minimum this code works with is the PiBot Interface Board.
+PiBot standard includes the PiBot IO board, the PiHero Power Board, chassis, and hardeware components.  Core Hardware includes; 9g servo, 2x DC motors, gear assemblies and encoders, stepper motor, Raspberry Pi Camera (v1 or V2), and ultrasound modules.
+
+The IO can be extended to support man further sensors and actuators:
+
+Avialable modules inclue:
+
+IR (InfaRed) modules
+
+Please see www.pibot.org for latest hardware available.
+ 
+Hardware Requirements:
+A working Raspberry Pi (see basic guide https://www.raspberrypi.org/help/quick-start-guide/)
+Internet Access (See https://cdn-learn.adafruit.com/downloads/pdf/adafruits-raspberry-pi-lesson-3-network-setup.pdf)
+A working PiBot IO board (see http://www.pibot.org)
+Working power either through an onboard battery or cabled power adapter)
+SD card containing a compatible Linux OS (Operating Systems include Raspian and Ubuntu, see https://www.raspberrypi.org/downloads/ links and details of Raspberry Pi OS options)
+
+Software Requirements:
+the code dependencies for pibot-python and pibot-arduino are listed and can be installed in the setup script. (setup.sh) Essentially these are open source packages, drivers, and utilities for interfacing with the various robot hardware.
+
+
