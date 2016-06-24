@@ -52,6 +52,7 @@ void setup()
 void loop()
 {
 	serialRecieve();
+	checkRFID();
    if(debug == true){
         
         if(inputMessage=="1"){
