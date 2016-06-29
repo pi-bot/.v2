@@ -23,3 +23,11 @@ sudo python testAll.py
 #moving a file to work the mission module
 mv /home/pi/v2/misc/sample_data.json /home/pi/v2/python-code/sample_data.json
 # now this test will test all teh hardware.  For minicome to work :
+cd ~/v2/arduino-firmware/src/sketch
+nano sketch.ino
+#now change debug line from false to true
+# then repeat above steps to uploand the firmware
+# then install mini com
+sudo apt-get install -y minicom 
+# then run it 
+minicom  -b 115200 -o -D /dev/ttyAMA0
