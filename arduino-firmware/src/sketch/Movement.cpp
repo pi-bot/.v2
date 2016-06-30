@@ -189,7 +189,7 @@ void motorControl(signed int speed, int* pins)
 void calcPID(void)
 {
         
-	L_CurrPos = L_ENC.read();
+	L_CurrPos = -L_ENC.read();
 	R_CurrPos = -R_ENC.read();
         
         if(L_TargPos>L_CurrPos){
