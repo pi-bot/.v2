@@ -52,3 +52,7 @@ StartupNotify=false
 #then reboot for changes to take effect
 
 sudo reboot
+
+# then connect from mac:
+
+open vnc://192.168.0.13:5901
