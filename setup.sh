@@ -13,7 +13,7 @@ cd /home/pi/v2/arduino-firmware/
 ./upload.sh
 #makesure the board power switch is on
 #before we test we need to tell the system where the modules are:
-echo "export PYTHONPATH=$PYTHONPATH:~/v2/python-code" >> ~/.profile
+echo "export PYTHONPATH=\$PYTHONPATH:~/v2/python-code" >> ~/.profile
 # then update bash profile to implement the change ins PYTHONPATH
 source ~/.profile
 # Then we can test
