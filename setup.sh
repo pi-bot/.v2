@@ -39,9 +39,9 @@ cd /home/pi/.config
 
 mkdir /home/pi/.config/autostart
 
-Sudo vim /home/pi/.config/autostart/tightvnc.desktop
+sudo vim /home/pi/.config/autostart/tightvnc.desktop
 
-Then add this in the file
+#Then add this in the file:
 
 [Desktop Entry]
 Type=Application
@@ -49,4 +49,6 @@ Name=TightVNC
 Exec=vncserver :1
 StartupNotify=false
 
-Sudo reboot
+#then reboot for changes to take effect
+
+sudo reboot
