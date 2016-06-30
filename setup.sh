@@ -31,3 +31,22 @@ nano sketch.ino
 sudo apt-get install -y minicom 
 # then run it 
 minicom  -b 115200 -o -D /dev/ttyAMA0
+# To make things really easy why not add minicom and vnc to all the bots also make sure idle runs as root
+#install vnc
+sudo apt-get install  tightvncserver
+#making vnc persistent
+cd /home/pi/.config
+
+mkdir /home/pi/.config/autostart
+
+Sudo vim /home/pi/.config/autostart/tightvnc.desktop
+
+Then add this in the file
+
+[Desktop Entry]
+Type=Application
+Name=TightVNC
+Exec=vncserver :1
+StartupNotify=false
+
+Sudo reboot
