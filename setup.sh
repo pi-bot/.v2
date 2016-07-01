@@ -56,3 +56,7 @@ sudo reboot
 # then connect from mac:
 
 open vnc://192.168.0.13:5901
+
+#general details for connecting to rebot over wireless
+#network ssid and pw are stored here.  This is set up from desktop in a shell environment.
+sudo cat /etc/wpa_supplicant/wpa_supplicant.conf
