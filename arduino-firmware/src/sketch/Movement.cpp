@@ -14,11 +14,15 @@
 #include "elapsedMillis.h"
 
 
-
 int L_MotorPins[2] = {6,10};		
 int R_MotorPins[2] = {5,9};	
 int En_MotorPin = 7;  			// not an enable only a mode pin on PiBot v8.0
-		
+
+int P_pos =9;
+float I_pos =0.2;
+float D_pos =0.3;
+
+bool at_position = false;		
 
 bool R_prev_dir;
 bool L_prev_dir;
@@ -82,12 +86,22 @@ void movePos(int deltaPos, int speed)
 
   dir = deltaPos;
   
-  L_PID_Pos.SetTunings(5, 0.1, 0.1);
-  R_PID_Pos.SetTunings(5, 0.1, 0.1);
-  PID_Diff.SetTunings(1, 0.1, 0);
+  L_PID_Pos.SetTunings(P_pos, I_pos, D_pos);
+  R_PID_Pos.SetTunings(P_pos, I_pos, D_pos);
+  PID_Diff.SetTunings(P_pos, I_pos, D_pos);
   
   L_MotorEn = true;
   R_MotorEn = true;
+  
+  at_position = false;
+}
+
+int getDistanceLeft(void){
+  return CLICKS_TO_DIST(-L_ENC.read());
+}
+
+int getDistanceRight(void){
+  return CLICKS_TO_DIST(-R_ENC.read());
 }
 
 void moveRotate(double deltaAngle, int speed)
@@ -114,6 +128,8 @@ void moveRotate(double deltaAngle, int speed)
   
   L_MotorEn = true;
   R_MotorEn = true;
+  
+  at_position = false;
 }
 
 void initPID(void)
@@ -189,7 +205,7 @@ void motorControl(signed int speed, int* pins)
 void calcPID(void)
 {
         
-	L_CurrPos = L_ENC.read();
+	L_CurrPos = -L_ENC.read();
 	R_CurrPos = -R_ENC.read();
         
         if(L_TargPos>L_CurrPos){
@@ -217,7 +233,7 @@ void calcPID(void)
 	if(L_PID_Pos.Compute() && L_MotorEn && R_PID_Pos.Compute() && R_MotorEn)
 	{              
           if(OutputDiff>0 && R_OutputPos>0 && L_OutputPos>0 || OutputDiff>0 && R_OutputPos<0 && L_OutputPos>0){
-            Serial.print("1");
+//            Serial.print("1");
             motorControl(R_OutputPos,R_MotorPins);
             motorControl(L_OutputPos-OutputDiff,L_MotorPins);
             OutputR =  R_OutputPos;
@@ -225,7 +241,7 @@ void calcPID(void)
           }
          
           else if(OutputDiff<0 && R_OutputPos>0 && L_OutputPos>0 || OutputDiff<0 && R_OutputPos>0 && L_OutputPos<0){
-            Serial.print("2");
+//            Serial.print("2");
             motorControl(R_OutputPos+OutputDiff,R_MotorPins);
             motorControl(L_OutputPos,L_MotorPins);
             OutputR =  R_OutputPos+OutputDiff;
@@ -233,7 +249,7 @@ void calcPID(void)
           }
           
           else if(OutputDiff>0 && R_OutputPos<0 && L_OutputPos<0 || OutputDiff>0 && R_OutputPos>0 && L_OutputPos<0){
-            Serial.print("3");
+//            Serial.print("3");
             motorControl(R_OutputPos,R_MotorPins);
             motorControl(L_OutputPos+OutputDiff,L_MotorPins);
             OutputR =  R_OutputPos;
@@ -241,7 +257,7 @@ void calcPID(void)
           }
          
           else if(OutputDiff<0 && R_OutputPos<0 && L_OutputPos<0 || OutputDiff<0 && R_OutputPos<0 && L_OutputPos>0){
-            Serial.print("4");
+//            Serial.print("4");
             motorControl(R_OutputPos-OutputDiff,R_MotorPins);
             motorControl(L_OutputPos,L_MotorPins);
             OutputR =  R_OutputPos-OutputDiff;
@@ -249,7 +265,7 @@ void calcPID(void)
           }
           
           else{
-            Serial.print("5");
+//            Serial.print("5");
             motorControl(R_OutputPos,R_MotorPins);
             motorControl(L_OutputPos,L_MotorPins);
             OutputR =  R_OutputPos;
@@ -259,25 +275,25 @@ void calcPID(void)
 //              Serial.print(L_CurrPos);
 //              Serial.print("LT");
 //              Serial.print(L_TargPos);
-              Serial.print(" L1");
-              Serial.print(L_OutputPos);
-              Serial.print(" Lo");
-              Serial.print(OutputL);
+//              Serial.print(" L1");
+//              Serial.print(L_OutputPos);
+//              Serial.print(" Lo");
+//              Serial.print(OutputL);
 //              Serial.print(" ");
 //              Serial.print("  R");
 //              Serial.print(R_CurrPos);
 //              Serial.print(" RT");
 //              Serial.print(R_TargPos);
-              Serial.print(" R1");
-              Serial.print(R_OutputPos);
-              Serial.print(" Ro");
-              Serial.print(OutputR);
-              Serial.print(" CD");
-              Serial.print(CurrDiff);
-              Serial.print(" TD");
-              Serial.print(TargDiff);
-              Serial.print(" oD");
-              Serial.println(OutputDiff);
+//              Serial.print(" R1");
+//              Serial.print(R_OutputPos);
+//              Serial.print(" Ro");
+//              Serial.print(OutputR);
+//              Serial.print(" CD");
+//              Serial.print(CurrDiff);
+//              Serial.print(" TD");
+//              Serial.print(TargDiff);
+//              Serial.print(" oD");
+//              Serial.println(getDistanceLeft());
           	
 	}
   checkPosReached();
@@ -305,7 +321,12 @@ void checkPosReached(void)
   {
     Serial.println("Reached position");
     disableControlLoop();
+    at_position = true;
   }
+}
+
+bool get_at_position(void){
+  return at_position;
 }
 
 
@@ -351,3 +372,4 @@ bool get_movement(void){
   }
   
 }
+

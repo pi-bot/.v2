@@ -52,6 +52,7 @@ void setup()
 void loop()
 {
 	serialRecieve();
+        checkRFID();
    if(debug == true){
         
         if(inputMessage=="1"){
@@ -254,6 +255,7 @@ void loop()
 			R_ENC.write(value);
 		}
 		break;
+
 		case WRITE_NEO_PIXEL:
 		//int redValue;
 		//int greenValue;
@@ -270,7 +272,22 @@ void loop()
 		case ROTATE:
 		moveRotate(pin,value);
 		break;
-		default:
+                case READ_RIGHT_DISTANCE:
+                char rightDistance[5];
+                sprintf(rightDistance,"%i",getDistanceRight());
+	        answer =+ rightDistance;
+                break;
+                case READ_LEFT_DISTANCE:
+                char leftDistance[5];
+                sprintf(leftDistance,"%i",getDistanceLeft());
+	        answer =+ leftDistance;
+                break;
+                case AT_POSITION:
+                char arrived[1];
+                sprintf(arrived,"%i",get_at_position());
+	        answer =+ arrived;
+                break;
+                default:
 		break;
 	}
 	Serial.print(answer+'\n');

@@ -1,5 +1,9 @@
+import sys
+print sys.path
+
 import time
 from arduino import Commands, Arduino
+#from arduino import Commands, Arduino
 from ultrasound import Ultrasound
 from time import sleep
 from motors import Motors
