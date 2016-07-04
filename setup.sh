@@ -9,6 +9,8 @@
 
 git clone https://github.com/pi-bot/v2
 # now we can udate the firmware
+git clone -b callback https://github.com/pi-bot/v2
+# The above is alternative branch
 cd /home/pi/v2/arduino-firmware/
 ./upload.sh
 #makesure the board power switch is on
