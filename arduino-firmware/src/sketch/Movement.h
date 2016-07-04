@@ -1,10 +1,10 @@
-
 /*
  * Movement.h
  *
  * Created: 25/02/2016 20:36:13
  *  Author: Olly
- */ 
+ *  Tolerance was 5
+ */
 
 #ifndef _MOVEMENT_H_
 #define _MOVEMENT_H_
@@ -41,6 +41,11 @@ bool R_reachedPos(void);
 bool get_movement(void);
 void disableControlLoop(void);
 
+int getDistanceLeft(void);
+int getDistanceRight(void);
+
+bool get_at_position(void);
+
 extern double L_TargPos, L_CurrPos, L_OutputPos;
 extern double R_TargPos, R_CurrPos, R_OutputPos;
 
@@ -52,4 +57,4 @@ extern int L_MotorPins[2];
 extern int R_MotorPins[2];
 
 
-#endif 
+#endif
