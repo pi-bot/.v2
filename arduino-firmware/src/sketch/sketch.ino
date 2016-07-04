@@ -1,5 +1,3 @@
-
-
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
@@ -22,7 +20,7 @@ ENCODER L_ENC;
 String inputMessage = "";
 boolean inputMessageComplete = false;
 
-bool debug = false;
+bool debug = true;
 
 
 
@@ -34,159 +32,159 @@ void setup()
 	inputMessage.reserve(MAX_MESSAGE_LENGTH);
 
 	setupETM();
-	
+
 	R_ENC.init(RIGHT_ENCODER_A,RIGHT_ENCODER_B,R_EncHandler);
 	L_ENC.init(LEFT_ENCODER_A,LEFT_ENCODER_B,L_EncHandler);
-	
+
 	// initalise motor pins
 	initMotors();
-	
+
 	//turn the PID on
 	initPID();
 	if(debug == true){
 	    Serial.println("Started");
         }
-       
+
 }
 
 void loop()
 {
 	serialRecieve();
-	checkRFID();
+        checkRFID();
    if(debug == true){
-        
+
         if(inputMessage=="1"){
           Serial.println("-20, 50");
           movePos(-20, 50);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="2"){
           Serial.println("20, 50");
           movePos(20, 20);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="3"){
           Serial.println("-20, 80");
           movePos(-20, 80);
           inputMessage=0;
-        
+
         }
         if(inputMessage=="4"){
           Serial.println("20, 80");
           movePos(20, 80);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="5"){
           Serial.println("-20, 100");
           movePos(-20, 100);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="6"){
           Serial.println("20, 100");
           movePos(20, 100);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="7"){
           Serial.println("-20, 120");
           movePos(-20, 120);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="8"){
           Serial.println("20, 120");
           movePos(20 ,120);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="9"){
           Serial.println("-20 ,150");
           movePos(-20 ,150);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="0"){
           Serial.println("20 ,150");
           movePos(20, 150);
           inputMessage=0;
-        
+
         }
         else if(inputMessage=="q"){
         Serial.println("-90, 80");
         moveRotate(-90, 50);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="w"){
         Serial.println("90, 80");
         moveRotate(90, 50);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="e"){
         Serial.println("-90, 85");
         moveRotate(-90, 80);
         inputMessage=0;
-        
+
         }
         if(inputMessage=="r"){
         Serial.println("90, 85");
         moveRotate(90, 80);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="t"){
         Serial.println("-90, 90");
         moveRotate(-90, 100);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="y"){
         Serial.println("90, 90");
         moveRotate(90, 100);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="u"){
         Serial.println("-90, 95");
         moveRotate(-90, 120);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="i"){
         Serial.println("90 ,95");
         moveRotate(90 ,120);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="o"){
         Serial.println("-90 ,100");
         moveRotate(-90 ,150);
         inputMessage=0;
-        
+
         }
         else if(inputMessage=="p"){
         Serial.println("90 ,100");
         moveRotate(90 ,150);
         inputMessage=0;
-        
+
         }
-        
-        
+
+
    }
 
    if(get_movement()){
-   
+
         calcPID();
    }
    if(debug == false){
      	if(!inputMessageComplete)
 	return;
-	
+
 	//a message has been received
 	//convert String to char array for parsing
 	char inputMessageCharArray[MAX_MESSAGE_LENGTH];
@@ -197,7 +195,7 @@ void loop()
 	int pin, value;
 	sscanf(inputMessageCharArray,"%i,%i,%i",&command, &pin, &value);
 
-  
+
 //	if(!checkPinNumber(&pin))     // this has been removed to allow pos/rot speed to be sent as a pin value
 //	{
 //		inputMessage="";
@@ -227,7 +225,7 @@ void loop()
 		writeDigital(pin,value);
 		break;
 		case WRITE_PWM:
-		writePWM(pin,value); 
+		writePWM(pin,value);
 		//disableControlLoop();
 		break;
 		case READ_ULTRASOUND:
@@ -255,6 +253,7 @@ void loop()
 			R_ENC.write(value);
 		}
 		break;
+
 		case WRITE_NEO_PIXEL:
 		//int redValue;
 		//int greenValue;
@@ -271,18 +270,33 @@ void loop()
 		case ROTATE:
 		moveRotate(pin,value);
 		break;
-		default:
+                case READ_RIGHT_DISTANCE:
+                char rightDistance[5];
+                sprintf(rightDistance,"%i",getDistanceRight());
+	        answer =+ rightDistance;
+                break;
+                case READ_LEFT_DISTANCE:
+                char leftDistance[5];
+                sprintf(leftDistance,"%i",getDistanceLeft());
+	        answer =+ leftDistance;
+                break;
+                case AT_POSITION:
+                char arrived[1];
+                sprintf(arrived,"%i",get_at_position());
+	        answer =+ arrived;
+                break;
+                default:
 		break;
 	}
 	Serial.print(answer+'\n');
-	
+
 	inputMessageComplete = false;
 	inputMessage = "";
-  
-	
+
+
    }
- 
-  
+
+
 }
 
 void serialRecieve() {
