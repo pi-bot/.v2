@@ -62,3 +62,23 @@ open vnc://192.168.0.13:5901
 #general details for connecting to rebot over wireless
 #network ssid and pw are stored here.  This is set up from desktop in a shell environment.
 sudo cat /etc/wpa_supplicant/wpa_supplicant.conf
+
+# error when we run the code:
+pi@maven:~/pibot/tests $ python td2.py
+connected
+waiting for button...
+waiting for desination
+waiting for desination
+waiting for desination
+waiting for desination
+waiting for desination
+waiting for desination
+waiting for desination
+Traceback (most recent call last):
+  File "td2.py", line 17, in <module>
+    there=int(move.getAtPosition())
+ValueError: invalid literal for int() with base 10: 'Reached position\r\n'
+
+# This seems to be because after the position is reached the function move.getAtPosition() is returning 'Reached position\r\n' (as this is not an Int it is therefore throwing an error
+#) This seems to me odd because 'Reached Position' is coming from the check checkPosReached(void)function in Movement.cpp. 
+# I cant see where that is being called and why the print(L is being returned.)
