@@ -319,7 +319,7 @@ void checkPosReached(void)
 {
     if(L_reachedPos()&& R_reachedPos()&& L_MotorEn==true)
   {
-    Serial.println("Reached position");
+//    Serial.println("Reached position");
     disableControlLoop();
     at_position = true;
   }
