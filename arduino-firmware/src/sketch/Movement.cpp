@@ -67,12 +67,12 @@ bool time_toggle_R = 0;
 void movePos(int deltaPos, int speed)
 {
  
-  if(speed<50){
-    speed = 50;
-  }
-  else if(speed>150){
-    speed = 150;
-  }
+//  if(speed<50){
+    speed = 230;
+//  }
+//  else if(speed>150){
+//    speed = 150;
+//  }
   
   
   
@@ -106,11 +106,11 @@ int getDistanceRight(void){
 
 void moveRotate(double deltaAngle, int speed)
 {
-  if(speed<80){
-    speed = 80;
+  if(speed<90){
+    speed = 90;
   }
-  else if(speed>100){
-    speed = 100;
+  else if(speed>120){
+    speed = 120;
   }
   L_PID_Pos.SetOutputLimits(-speed,speed);
   L_ENC.reset();
