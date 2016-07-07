@@ -22,12 +22,18 @@ class Commands:             # call with:
     READ_ULTRASOUND = 4     # result = sendCommand(READ_ULTRASOUND, triggerPin, echoPin)
     READ_LEFT_ENCODER = 5   # result = sendCommand(READ_LEFT_ENCODER,0,0)
     READ_RIGHT_ENCODER = 6  # result = sendCommand(READ_RIGHT_ENCODER,0,0)
+"arduino.py" 81L, 2650C                                                                                                                                            5,1           Top
+    READ_LEFT_ENCODER = 5   # result = sendCommand(READ_LEFT_ENCODER,0,0)
+    READ_RIGHT_ENCODER = 6  # result = sendCommand(READ_RIGHT_ENCODER,0,0)
     WRITE_NEO_PIXEL = 7     # sendCommand(WRITE_NEO_PIXEL, pinNumber, pixelNumber 0-8, r,g,b 0-255)
     RESET_NEO_PIXELS = 8    # sendCommand(RESET_NEO_PIXELS, pinNumber, 0)
     READ_RFID = 9           # read rfid
     POSITION = 10           # go to potition
     ROTATE = 11             # rotate
-    
+    READ_RIGHT_DISTANCE = 12
+    READ_LEFT_DISTANCE = 13
+    AT_POSITION = 14
+
 
 class Arduino:
     connected = False
@@ -39,6 +45,9 @@ class Arduino:
         GPIO.setup(ARDUINO_RESET,GPIO.OUT)
         GPIO.output(ARDUINO_RESET,GPIO.HIGH)
         sleep(0.1)
+        GPIO.output(ARDUINO_RESET,GPIO.LOW)
+        sleep(0.1)
+                                                                                                                                                                   23,5          38%
         GPIO.output(ARDUINO_RESET,GPIO.LOW)
         sleep(0.1)
         GPIO.output(ARDUINO_RESET,GPIO.HIGH)
@@ -63,7 +72,10 @@ class Arduino:
             return
         Arduino.port.close()
         Arduino.connected = False
-        
+                                                                                                                                                                   45,9          77%
+        Arduino.port.close()
+        Arduino.connected = False
+
 
     def sendCommand(self,command,pin,value,*otherArguments):
         message = "{0},{1},{2}".format(command,pin,value)
