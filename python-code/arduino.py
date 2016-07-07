@@ -22,9 +22,6 @@ class Commands:             # call with:
     READ_ULTRASOUND = 4     # result = sendCommand(READ_ULTRASOUND, triggerPin, echoPin)
     READ_LEFT_ENCODER = 5   # result = sendCommand(READ_LEFT_ENCODER,0,0)
     READ_RIGHT_ENCODER = 6  # result = sendCommand(READ_RIGHT_ENCODER,0,0)
-"arduino.py" 81L, 2650C                                                                                                                                            5,1           Top
-    READ_LEFT_ENCODER = 5   # result = sendCommand(READ_LEFT_ENCODER,0,0)
-    READ_RIGHT_ENCODER = 6  # result = sendCommand(READ_RIGHT_ENCODER,0,0)
     WRITE_NEO_PIXEL = 7     # sendCommand(WRITE_NEO_PIXEL, pinNumber, pixelNumber 0-8, r,g,b 0-255)
     RESET_NEO_PIXELS = 8    # sendCommand(RESET_NEO_PIXELS, pinNumber, 0)
     READ_RFID = 9           # read rfid
