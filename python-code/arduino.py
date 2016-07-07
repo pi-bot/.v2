@@ -69,9 +69,6 @@ class Arduino:
             return
         Arduino.port.close()
         Arduino.connected = False
-                                                                                                                                                                   45,9          77%
-        Arduino.port.close()
-        Arduino.connected = False
 
 
     def sendCommand(self,command,pin,value,*otherArguments):
