@@ -86,3 +86,9 @@ ValueError: invalid literal for int() with base 10: 'Reached position\r\n'
 # values I've tried 2,0,2,0 this does not respond 
 # values 9, 0.4, 0.3 seem to be better but not perfect. 
 # How do we find the perfect solutions?
+# Now test all bots!
+sudo rm -rf v2
+git clone -b callback https://github.com/pi-bot/v2
+cd ~/v2/arduino-firmware/
+./upload.sh
+python ~/v2/tests/td2.py
