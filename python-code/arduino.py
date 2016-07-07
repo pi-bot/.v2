@@ -44,9 +44,6 @@ class Arduino:
         sleep(0.1)
         GPIO.output(ARDUINO_RESET,GPIO.LOW)
         sleep(0.1)
-                                                                                                                                                                   23,5          38%
-        GPIO.output(ARDUINO_RESET,GPIO.LOW)
-        sleep(0.1)
         GPIO.output(ARDUINO_RESET,GPIO.HIGH)
         sleep(0.5)
 
