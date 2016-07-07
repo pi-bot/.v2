@@ -10,11 +10,11 @@
 #ifndef _MOVEMENT_H_
 #define _MOVEMENT_H_
 
-#define MAX_SPEED	150
+#define MAX_SPEED	180
 
 
 // DEFAULTS
-#define POS_TOLERANCE 5
+#define POS_TOLERANCE 7
 
 #define CLICKS_PER_CM   9.15
 #define CLICKS_PER_DEG	1.06
