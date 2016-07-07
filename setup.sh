@@ -86,6 +86,14 @@ ValueError: invalid literal for int() with base 10: 'Reached position\r\n'
 # values I've tried 2,0,2,0 this does not respond 
 # values 9, 0.4, 0.3 seem to be better but not perfect. 
 # How do we find the perfect solutions?
+#First tune P and D 
+#Set all to Zero and increase P by 0.5 ~ 1 untill it overshoots 
+#Then up D by ~0.1 untill it doesn't over shoot any more
+#Record the values and then repeat the cycle of upping P untill it over shoots again
+#and D intill it counters that.
+#You'll do this to the point where it doesn't improve
+#Go back to where it was most optimal
+#Then add some I to compensate uphill/downhill and do this ~0.1
 # Now test all bots!
 sudo rm -rf v2
 git clone -b callback https://github.com/pi-bot/v2
