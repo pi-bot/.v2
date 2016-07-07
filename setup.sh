@@ -82,3 +82,7 @@ ValueError: invalid literal for int() with base 10: 'Reached position\r\n'
 # This seems to be because after the position is reached the function move.getAtPosition() is returning 'Reached position\r\n' (as this is not an Int it is therefore throwing an error
 #) This seems to me odd because 'Reached Position' is coming from the check checkPosReached(void)function in Movement.cpp. 
 # I cant see where that is being called and why the print(L is being returned.)
+# Final question is how do we find the right settings for the PID 
+# values I've tried 2,0,2,0 this does not respond 
+# values 9, 0.4, 0.3 seem to be better but not perfect. 
+# How do we find the perfect solutions?
