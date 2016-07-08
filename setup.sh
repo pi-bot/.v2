@@ -8,6 +8,20 @@
 # uodate all firmware
 sudo apt-get update 
 sudo apt-get upgrade 
+
+# replace hostname 
+#automatically 
+sudo sed -i -- 's/raspberry/pibot3/g' /etc/hosts; sudo sed -i -- 's/raspberry/pibot3/g' /etc/hostname
+# or manually I like to use vim
+sudo apt-get install vim -y 
+# replace raspberry with the name of your choosing:
+sudo vim /etc/hosts 
+sudo vim /etc/hostname
+# then implement:
+sudo /etc/init.d/hostname.sh; sudo reboot
+
+# install arduino and dependencies
+sudo apt-get install arduino
 # install arduino and dependencies
 sudo apt-get install arduino
 
