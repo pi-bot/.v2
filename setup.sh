@@ -11,7 +11,7 @@ sudo apt-get upgrade
 
 # replace hostname 
 #automatically 
-sudo sed -i -- 's/raspberry/pibot3/g' /etc/hosts; sudo sed -i -- 's/raspberry/pibot3/g' /etc/hostname
+sudo sed -i -- 's/raspberrypi/pibot3/g' /etc/hosts; sudo sed -i -- 's/raspberrypi/pibot3/g' /etc/hostname
 # or manually I like to use vim
 sudo apt-get install vim -y 
 # replace raspberry with the name of your choosing:
