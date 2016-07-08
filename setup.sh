@@ -1,6 +1,48 @@
 #!/bin/bash
 # this is a bash file intended to be run to install all the dependecies for the PiBot Code base
+# For now its a collection of steps to help get this set up.  Will probably make sense to core team only.
 # TBC
+
+# PiBot dependecies:
+# Trying the port to RPIv3 with new Jessie image (may 2016)
+# uodate all firmware
+sudo apt-get update 
+sudo apt-get upgrade 
+# install arduino and dependencies
+sudo apt-get install arduino
+
+#Arduino IDE does not recognise this port. It prefers to use /dev/ttyS0. 
+#To get round this we link /dev/ttyS0 to /dev/ttyAMA0 and make sure this link is permanent. 
+#To do this, we need to create a file called /etc/udev/rules.d/99-tty.rules using a text editor.
+
+#
+vim /etc/udev/rules.d/99-tty.rules
+# Add this 
+KERNEL==”ttyAMA0″,SYMLINK+=”ttyS0″ GROUP=”dialout”
+KERNEL==”ttyACM0″,SYMLINK+=”ttyS1″ GROUP=”dialout”
+# then reboot 
+sudo reboot
+
+
+# update avr dude so we can use a GPIO pin for reset
+
+git clone  https://github.com/CisecoPlc/avrdude-rpi
+
+cd avrdude-rpi
+sudo cp autoreset /usr/bin
+sudo cp avrdude-autoreset /usr/bin
+sudo mv /usr/bin/avrdude /usr/bin/avrdude-original
+sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
+
+# Just to be sure everything is as it should be open the file /usr/bin/autoreset and look at line 15. It should look like this:
+   pin = 7
+
+# currently issues here so chcking Jasons version!
+
+
+# now install ino to push firmware to Atmega328P
+sudo pip install ino
+
 
 # Notes for you to get code working 
 # On command line in robot update the Python path:
