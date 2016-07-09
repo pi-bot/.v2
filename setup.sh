@@ -8,6 +8,10 @@
 # uodate all firmware
 sudo apt-get update 
 sudo apt-get upgrade 
+# need this to get seriel interface with the pi
+#http://spellfoundry.com/sleepy-pi/setting-arduino-ide-raspbian/
+# struggling to get this to work on a raspberry Pi 3
+# it goes blank arfter running the autoreset file.  Works fine on RPi v2 though
 
 # replace hostname 
 #automatically 
