@@ -26,15 +26,13 @@ sudo /etc/init.d/hostname.sh; sudo reboot
 
 # install arduino and dependencies
 sudo apt-get install arduino
-# install arduino and dependencies
-sudo apt-get install arduino
 
 #Arduino IDE does not recognise this port. It prefers to use /dev/ttyS0. 
 #To get round this we link /dev/ttyS0 to /dev/ttyAMA0 and make sure this link is permanent. 
 #To do this, we need to create a file called /etc/udev/rules.d/99-tty.rules using a text editor.
 
 #
-vim /etc/udev/rules.d/99-tty.rules
+sudo vim /etc/udev/rules.d/99-tty.rules
 # Add this 
 KERNEL==”ttyAMA0″,SYMLINK+=”ttyS0″ GROUP=”dialout”
 KERNEL==”ttyACM0″,SYMLINK+=”ttyS1″ GROUP=”dialout”
