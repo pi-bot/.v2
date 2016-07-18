@@ -50,6 +50,13 @@ sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
 # for all other raspberry pi's the connection is over /dev/ttyAMA0 
 
 #Finally I can add the Pibot as a board to be accessable from the arduiono IDE 
+
+# The below did not work 
+# following another guide we find that its should be is 
+cd /usr/share/arduino/hardware/arduino
+# then instead edit the existing boards.txt to add the entry. 
+
+
 mkdir /home/pi/sketchbook
 mkdir /home/pi/sketchbook/hardware 
 mkdir /home/pi/sketchbook/hardware/pi_bot
