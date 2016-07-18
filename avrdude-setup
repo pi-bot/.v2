@@ -1,0 +1,35 @@
+#avrdude is needed to program the PiBot.
+#This file outlines the steps
+# first upgrade Jessie
+sudo apt-get update && sudo apt-get upgrade
+# then install arduino:
+sudo apt-get install arduino
+# then disable kernal messages being sent to serial:
+sudo systemctl stop serial-getty@ttyAMA0.service
+sudo systemctl disable serial-getty@ttyAMA0.service
+# and add this line to the Raspberry Pi config file:
+# this doesn't work: echo 'enable_uart=1' >> sudo /boot/config.txt
+# then we need to delete a line 
+sudo vim /boot/cmdline.txt
+remove the string 'console=serail0,115200'
+# then setup this mapping for linking the default arduiono serial interface with ours 
+
+sudo vim /etc/udev/rules.d/80-pibot.rules
+
+currently doing this: 
+
+
+
+
+
+
+
+git clone  https://github.com/CisecoPlc/avrdude-rpi
+
+cd avrdude-rpi
+sudo cp autoreset /usr/bin
+sudo cp avrdude-autoreset /usr/bin
+sudo mv /usr/bin/avrdude /usr/bin/avrdude-original
+sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
+
+sudo vim 
