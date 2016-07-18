@@ -65,6 +65,9 @@ sudo vim /boot/cmdline.txt
 
 # update avr dude so we can use a GPIO pin for reset
 
+# /dev/ttyS0
+# No such file or directory avrdude-original done.  Thank you.
+
 git clone  https://github.com/CisecoPlc/avrdude-rpi
 
 cd avrdude-rpi
