@@ -31,6 +31,18 @@ sudo apt-get install arduino
 #To get round this we link /dev/ttyS0 to /dev/ttyAMA0 and make sure this link is permanent. 
 #To do this, we need to create a file called /etc/udev/rules.d/99-tty.rules using a text editor.
 
+# We communicate and program the PiBots microchip overseriel.  
+# To do this we need to set up the 
+# 1 disable normal output to serial:
+sudo raspi-config
+# 9 advanced options
+# A7 Serial Enable/Disable shell and kernal messages over serial
+# Would you like a login shell to be accessible oer serial?
+# NO  
+
+
+#apparently this is not true for the raspberry pi so this is not required:
+
 #
 sudo vim /etc/udev/rules.d/99-tty.rules
 # Add this 
@@ -39,6 +51,17 @@ KERNEL==”ttyACM0″,SYMLINK+=”ttyS1″ GROUP=”dialout”
 # then reboot 
 sudo reboot
 
+
+# this is what I did for RPI3:
+sudo systemctl stop serial-getty@ttyS0.service 
+sudo systemctl disable serial-getty@ttyS0.service
+# also in Jessie enable uart
+sudo vim /boot/config.txt
+# then add:
+enable_uart=1
+# When Raspbian boots up it outputs boot information to the serial port
+# To disable this we need to edit the /boot/cmdline.txt
+sudo vim /boot/cmdline.txt
 
 # update avr dude so we can use a GPIO pin for reset
 
@@ -51,9 +74,16 @@ sudo mv /usr/bin/avrdude /usr/bin/avrdude-original
 sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
 
 # Just to be sure everything is as it should be open the file /usr/bin/autoreset and look at line 15. It should look like this:
-   pin = 7
+sudo vim /usr/bin/autoreset
+
+#Change line 15 to :
+     pin = 4
 
 # currently issues here so chcking Jasons version!
+
+# The above did not work so trying another way from Adafruit
+sudo rm /usr/bin/autoreset ; sudo rm /usr/bin/avrdude-autoreset
+sudo mv  /usr/bin/avrdude-original /usr/bin/avrdude
 
 
 # now install ino to push firmware to Atmega328P
