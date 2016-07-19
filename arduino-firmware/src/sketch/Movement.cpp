@@ -1,10 +1,9 @@
-
 /*
  * Movement.c
  *
  * Created: 25/02/2016 20:35:56
  *  Author: Olly						changed by Jason for PiBot v8.0 10/05/2016
- */ 
+ */
 
 
 #include <Arduino.h>
@@ -14,15 +13,15 @@
 #include "elapsedMillis.h"
 
 
-int L_MotorPins[2] = {6,10};		
-int R_MotorPins[2] = {5,9};	
+int L_MotorPins[2] = {6,10};
+int R_MotorPins[2] = {5,9};
 int En_MotorPin = 7;  			// not an enable only a mode pin on PiBot v8.0
 
-int P_pos =9;
-float I_pos =0.2;
+int P_pos =8;
+float I_pos =0.08;
 float D_pos =0.3;
 
-bool at_position = false;		
+bool at_position = false;
 
 bool R_prev_dir;
 bool L_prev_dir;
@@ -50,7 +49,7 @@ PID R_PID_Pos(&R_CurrPos, &R_OutputPos, &R_TargPos, Kp_Pos, Ki_Pos, Kd_Pos, DIRE
 
 
 // Differential control
-double Kp_Diff=0, Ki_Diff=0, Kd_Diff=0; 
+double Kp_Diff=0, Ki_Diff=0, Kd_Diff=0;
 
 double TargDiff=0, CurrDiff, OutputDiff;
 
@@ -66,33 +65,33 @@ bool time_toggle_R = 0;
 
 void movePos(int deltaPos, int speed)
 {
- 
+
 //  if(speed<50){
-    speed = 230;
+//    speed = 50;
 //  }
 //  else if(speed>150){
 //    speed = 150;
 //  }
-  
-  
-  
+//   speed = 230;
+
+
   L_PID_Pos.SetOutputLimits(-speed,speed);
   L_ENC.reset();
   L_TargPos = DIST_TO_CLICKS(deltaPos);//L_CurrPos + DIST_TO_CLICKS(deltaPos);
-  
+
   R_PID_Pos.SetOutputLimits(-speed,speed);
   R_ENC.reset();
   R_TargPos = DIST_TO_CLICKS(deltaPos);//R_CurrPos + DIST_TO_CLICKS(deltaPos);
 
   dir = deltaPos;
-  
+
   L_PID_Pos.SetTunings(P_pos, I_pos, D_pos);
   R_PID_Pos.SetTunings(P_pos, I_pos, D_pos);
   PID_Diff.SetTunings(P_pos, I_pos, D_pos);
-  
+
   L_MotorEn = true;
   R_MotorEn = true;
-  
+
   at_position = false;
 }
 
@@ -106,29 +105,29 @@ int getDistanceRight(void){
 
 void moveRotate(double deltaAngle, int speed)
 {
-  if(speed<90){
-    speed = 90;
-  }
-  else if(speed>120){
-    speed = 120;
-  }
+// if(speed<80){
+//   speed = 80;
+// }
+//  else if(speed>100){
+//    speed = 150;
+//  }
   L_PID_Pos.SetOutputLimits(-speed,speed);
   L_ENC.reset();
   L_TargPos = - ANGLE_TO_CLICKS(deltaAngle);
 
-  R_PID_Pos.SetOutputLimits(-speed,speed); 
+  R_PID_Pos.SetOutputLimits(-speed,speed);
   R_ENC.reset();
   R_TargPos = ANGLE_TO_CLICKS(deltaAngle);
-  
+
   dir = deltaAngle;
-  
+
   L_PID_Pos.SetTunings(9, 0, 0.05);
   R_PID_Pos.SetTunings(9, 0, 0.05);
   PID_Diff.SetTunings(0, 0, 0);
-  
+
   L_MotorEn = true;
   R_MotorEn = true;
-  
+
   at_position = false;
 }
 
@@ -140,13 +139,13 @@ void initPID(void)
 	R_PID_Pos.SetSampleTime(1);
 	L_PID_Pos.SetOutputLimits(-MAX_SPEED,MAX_SPEED);
 	R_PID_Pos.SetOutputLimits(-MAX_SPEED,MAX_SPEED);
-	
+
 	PID_Diff.SetMode(AUTOMATIC);
 	PID_Diff.SetSampleTime(1);
 	PID_Diff.SetOutputLimits(-10,10);
-	
 
-	
+
+
 }
 
 void initMotors(void)
@@ -163,10 +162,10 @@ void initMotors(void)
 
 void motorControl(signed int speed, int* pins)
 {
-	
-	
+
+
 	speed = constrain(speed,-MAX_SPEED,MAX_SPEED);
-        
+
 	if(speed==0 && pins[0]==6){
             analogWrite(10,speed);
         }
@@ -174,40 +173,40 @@ void motorControl(signed int speed, int* pins)
             analogWrite(9,speed);
         }
         else if(speed>0 && pins[0]==6){
-            
+
             digitalWrite(6,HIGH);
             analogWrite(10,speed);
-            
+
          }
          else if(speed>0 && pins[0]==5){
-           
+
             digitalWrite(5,LOW);
             analogWrite(9,speed);
-           
+
          }
          else if(speed<0 && pins[0]==6){
-            
+
            speed = abs(speed);
            digitalWrite(6,LOW);
            analogWrite(10,speed);
-            
+
          }
          else if(speed<0 && pins[0]==5){
             speed = abs(speed);
             digitalWrite(5,HIGH);
-            analogWrite(9,speed);    
+            analogWrite(9,speed);
          }
-         
+
 }
 
 
 
 void calcPID(void)
 {
-        
+
 	L_CurrPos = -L_ENC.read();
 	R_CurrPos = -R_ENC.read();
-        
+
         if(L_TargPos>L_CurrPos){
           L_diff_delta = (L_TargPos-L_CurrPos)+1;
         }
@@ -220,18 +219,18 @@ void calcPID(void)
         else{
           R_diff_delta = (R_CurrPos-R_TargPos)+1;
         }
-        
+
         if(dir>0){
           CurrDiff = R_diff_delta - L_diff_delta;
         }
         else{
           CurrDiff = L_diff_delta - R_diff_delta;
         }
-        
+
         PID_Diff.Compute();
 
 	if(L_PID_Pos.Compute() && L_MotorEn && R_PID_Pos.Compute() && R_MotorEn)
-	{              
+	{
           if(OutputDiff>0 && R_OutputPos>0 && L_OutputPos>0 || OutputDiff>0 && R_OutputPos<0 && L_OutputPos>0){
 //            Serial.print("1");
             motorControl(R_OutputPos,R_MotorPins);
@@ -239,7 +238,7 @@ void calcPID(void)
             OutputR =  R_OutputPos;
             OutputL =  L_OutputPos-OutputDiff;
           }
-         
+
           else if(OutputDiff<0 && R_OutputPos>0 && L_OutputPos>0 || OutputDiff<0 && R_OutputPos>0 && L_OutputPos<0){
 //            Serial.print("2");
             motorControl(R_OutputPos+OutputDiff,R_MotorPins);
@@ -247,7 +246,7 @@ void calcPID(void)
             OutputR =  R_OutputPos+OutputDiff;
             OutputL =  L_OutputPos;
           }
-          
+
           else if(OutputDiff>0 && R_OutputPos<0 && L_OutputPos<0 || OutputDiff>0 && R_OutputPos>0 && L_OutputPos<0){
 //            Serial.print("3");
             motorControl(R_OutputPos,R_MotorPins);
@@ -255,7 +254,7 @@ void calcPID(void)
             OutputR =  R_OutputPos;
             OutputL =  L_OutputPos+OutputDiff;
           }
-         
+
           else if(OutputDiff<0 && R_OutputPos<0 && L_OutputPos<0 || OutputDiff<0 && R_OutputPos<0 && L_OutputPos>0){
 //            Serial.print("4");
             motorControl(R_OutputPos-OutputDiff,R_MotorPins);
@@ -263,7 +262,7 @@ void calcPID(void)
             OutputR =  R_OutputPos-OutputDiff;
             OutputL =  L_OutputPos;
           }
-          
+
           else{
 //            Serial.print("5");
             motorControl(R_OutputPos,R_MotorPins);
@@ -294,7 +293,7 @@ void calcPID(void)
 //              Serial.print(TargDiff);
 //              Serial.print(" oD");
 //              Serial.println(getDistanceLeft());
-          	
+
 	}
   checkPosReached();
 }
@@ -363,13 +362,12 @@ bool R_reachedPos(void)
 
 bool get_movement(void){
   if(L_MotorEn == false && R_MotorEn == false){
-    
+
     return 0;
-    
+
   }
   else{
     return 1;
   }
-  
-}
 
+}
