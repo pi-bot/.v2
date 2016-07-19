@@ -3,4 +3,4 @@ ssh pi@...local
 sudo rm -rf v2
 git clone -b callback https://github.com/pi-bot/v2
 cd /home/pi/v2/arduino-firmware/; ./upload.sh
-cd /home/pi/v2/tests/; sudo python testAll.py
+cd /home/pi/v2/tests/; sudo python td2.py
