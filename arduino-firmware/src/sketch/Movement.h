@@ -10,7 +10,7 @@
 #ifndef _MOVEMENT_H_
 #define _MOVEMENT_H_
 
-#define MAX_SPEED	180
+#define MAX_SPEED	255
 
 
 // DEFAULTS
