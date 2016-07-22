@@ -80,6 +80,8 @@ double ENCODER::readVelocity(void)
 	return tksPerPeriod;
 }
 
+
+
 void L_calcVel(void)
 {
 	static double prevPos = 0;

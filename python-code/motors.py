@@ -1,4 +1,4 @@
-# 
+#
 #  	New version for "PiBot v8.0" With improved motor control IC DRV8835
 #	also updated with new pin definitions for new PCB
 #
@@ -23,9 +23,9 @@ class Motors():
         self.board = Arduino()
         self.board.connect()
 
-    def enable(self): 
+    def enable(self):
         self.board.sendCommand(Commands.WRITE_DIGITAL,7,1)	# puts motor drive into Phase/Enable mode
-    
+
     def disable(self):
         self.board.sendCommand(Commands.WRITE_DIGITAL,7,0)# puts motor drive into IN/IN mode
 
@@ -38,19 +38,28 @@ class Motors():
         self.board.sendCommand(Commands.WRITE_PWM,LEFT_MOTOR_SPEED,commandR)
         self.board.sendCommand(Commands.WRITE_PWM,RIGHT_MOTOR_SPEED,commandL)
 
-	
-        
-		
+
     def getLeft(self):
-	    value = self.board.sendCommand(Commands.READ_LEFT_ENCODER,0,0)
-	    return value
-	
+	value = self.board.sendCommand(Commands.READ_LEFT_ENCODER,0,0)
+	return value
+
     def getRight(self):
-	    value = self.board.sendCommand(Commands.READ_RIGHT_ENCODER,0,0)
-	    return value
+	value = self.board.sendCommand(Commands.READ_RIGHT_ENCODER,0,0)
+	return value
+
+    def getRightDistance(self):
+        value = self.board.sendCommand(Commands.READ_RIGHT_DISTANCE,0,0)
+	return value
+    def getLeftDistance(self):
+        value = self.board.sendCommand(Commands.READ_LEFT_DISTANCE,0,0)
+	return value
+
+    def getAtPosition(self):
+        value = self.board.sendCommand(Commands.AT_POSITION,0,0)
+	return value
 
     def backward(self, speed):
-        self.enable() 
+        self.enable()
         commandL = self.speedToCommand(speed)
 	commandR = self.speedToCommand(speed)
 
@@ -71,8 +80,8 @@ class Motors():
             self.board.sendCommand(Commands.WRITE_PWM,LEFT_MOTOR_SPEED,command)
             self.board.sendCommand(Commands.WRITE_DIGITAL,LEFT_MOTOR_DIRECTION,0)
 
-      
-    
+
+
     def rightMotor(self, speed, direction):
 
         self.enable()
@@ -84,10 +93,10 @@ class Motors():
             self.board.sendCommand(Commands.WRITE_PWM,RIGHT_MOTOR_SPEED,command)
             self.board.sendCommand(Commands.WRITE_DIGITAL,RIGHT_MOTOR_DIRECTION,1)
 
-      
+
 
     def stop(self):
-       
+
 	self.board.sendCommand(Commands.WRITE_DIGITAL,LEFT_MOTOR_SPEED,0)
         self.board.sendCommand(Commands.WRITE_DIGITAL,RIGHT_MOTOR_SPEED,0)
         #self.position(0)
@@ -103,7 +112,17 @@ class Motors():
 
     def position(self,pos,speed):
         self.board.sendCommand(Commands.POSITION,pos,speed)
-    
+
+    def goPosition(self,pos):
+        self.board.sendCommand(Commands.POSITION,pos,speed)
+
+        value = self.board.sendCommand(Commands.AT_POSITION,0,0)
+	while(value==0):
+		print("on my way")
+		sleep(0.2)
+
+
+
     def moveForward(self,pos,speed=DEFAULT_SPEED):
         self.position(pos,speed)
 
@@ -112,7 +131,7 @@ class Motors():
 
     def rotate(self,angle,speed):
         self.board.sendCommand(Commands.ROTATE,angle,speed)
-        
+
     def turnLeft(self,angle,speed=DEFAULT_SPEED):
         self.rotation(-angle,speed)
 
@@ -131,7 +150,7 @@ class Motors():
 
 
 
-''' 
+'''
 class Motors():
     def __init__(self):
         self.board = Arduino()
@@ -139,7 +158,7 @@ class Motors():
 
     def enable(self): #arduino.A2
         self.board.sendCommand(Commands.WRITE_DIGITAL,7,1)
-    
+
     def disable(self):
         self.board.sendCommand(Commands.WRITE_DIGITAL,7,0)
 
@@ -152,11 +171,11 @@ class Motors():
         self.board.sendCommand(Commands.WRITE_PWM,RIGHT_MOTOR_SPEED,command)
         #commands are set, enable the motors
         self.enable()
-		
+
 	def getLeft(self):
 		value = self.board.sendCommand(Commands.READ_LEFT_ENCODER,0,0)
 		return value
-	
+
 	def getRight(self):
 		value = self.board.sendCommand(Commands.READ_RIGHT_ENCODER,0,0)
 		return value
@@ -181,7 +200,7 @@ class Motors():
             self.board.sendCommand(Commands.WRITE_PWM,LEFT_MOTOR_SPEED,0)
             self.board.sendCommand(Commands.WRITE_PWM,LEFT_MOTOR_DIRECTION,command)
         self.enable()
-    
+
     def rightMotor(self, speed, direction):
         self.disable()
         command = self.speedToCommand(speed)
@@ -215,7 +234,7 @@ class Motors():
         self.disable()
         self.board.sendCommand(Commands.POSITION,speed,pos)
         self.enable()
-        
+
     def position(self,pos):
         position(pos,DEFAULT_SPEED)
 
@@ -239,17 +258,17 @@ class Motors():
         self.disable()
         self.board.sendCommand(Commands.ROTATE,speed,angle)
         self.enable()
-        
+
     def rotation(self,angle):
         rotation(angle,DEFAULT_SPEED)
-        
-    
+
+
     def turnLeft(self,angle,speed):
 	self.rotation(angle,speed)
 
     def turnLeft(self,angle):
 	self.rotation(angle)
-	
+
 
     def turnRight(self,angle,speed):
 	self.rotation(-angle,speed)

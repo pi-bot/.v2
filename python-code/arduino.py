@@ -27,7 +27,10 @@ class Commands:             # call with:
     READ_RFID = 9           # read rfid
     POSITION = 10           # go to potition
     ROTATE = 11             # rotate
-    
+    READ_RIGHT_DISTANCE = 12
+    READ_LEFT_DISTANCE = 13
+    AT_POSITION = 14
+
 
 class Arduino:
     connected = False
@@ -63,7 +66,7 @@ class Arduino:
             return
         Arduino.port.close()
         Arduino.connected = False
-        
+
 
     def sendCommand(self,command,pin,value,*otherArguments):
         message = "{0},{1},{2}".format(command,pin,value)

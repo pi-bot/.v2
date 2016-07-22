@@ -15,6 +15,9 @@ typedef enum
   , READ_RFID
   , POSITION
   , ROTATE
+  , READ_RIGHT_DISTANCE
+  , READ_LEFT_DISTANCE
+  , AT_POSITION
   } Commands;
 
 int readDigital(int pin)

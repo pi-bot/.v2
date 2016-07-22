@@ -17,8 +17,8 @@ int L_MotorPins[2] = {6,10};
 int R_MotorPins[2] = {5,9};
 int En_MotorPin = 7;  			// not an enable only a mode pin on PiBot v8.0
 
-int P_pos =9;
-float I_pos =0.2;
+int P_pos =8;
+float I_pos =0.08;
 float D_pos =0.3;
 
 bool at_position = false;
@@ -66,13 +66,14 @@ bool time_toggle_R = 0;
 void movePos(int deltaPos, int speed)
 {
 
-  if(speed<50){
-    speed = 50;
-  }
-  else if(speed>150){
-    speed = 150;
-  }
 
+//  if(speed<50){
+//    speed = 50;
+//  }
+//  else if(speed>150){
+//    speed = 150;
+//  }
+//   speed = 230;
 
 
   L_PID_Pos.SetOutputLimits(-speed,speed);
@@ -105,12 +106,12 @@ int getDistanceRight(void){
 
 void moveRotate(double deltaAngle, int speed)
 {
-  if(speed<80){
-    speed = 80;
-  }
-  else if(speed>100){
-    speed = 100;
-  }
+// if(speed<80){
+//   speed = 80;
+// }
+//  else if(speed>100){
+//    speed = 150;
+//  }
   L_PID_Pos.SetOutputLimits(-speed,speed);
   L_ENC.reset();
   L_TargPos = - ANGLE_TO_CLICKS(deltaAngle);
@@ -318,7 +319,7 @@ void checkPosReached(void)
 {
     if(L_reachedPos()&& R_reachedPos()&& L_MotorEn==true)
   {
-    Serial.println("Reached position");
+//    Serial.println("Reached position");
     disableControlLoop();
     at_position = true;
   }

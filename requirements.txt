@@ -2,7 +2,7 @@ This code is design for the PiBot multi-media robot based on the Raspberry Pi.
 The robot is compatible with Raspberry Pi with the new 40pin GPIO interface.
 As of mid 2016 this includes Raspberry Pi's A+, B+, B2, B3 and Zero.
 
-PiBot is moduler. The minimum this code works with is the PiBot Interface Board.
+PiBot is moduler. The minimum this code works with is the PiBot Interface Board on a Raspberry Pi.
 PiBot standard includes the PiBot IO board, the PiHero Power Board, chassis, and hardeware components.  Core Hardware includes; 9g servo, 2x DC motors, gear assemblies and encoders, stepper motor, Raspberry Pi Camera (v1 or V2), and ultrasound modules.
 
 The IO can be extended to support man further sensors and actuators:
