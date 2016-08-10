@@ -14,29 +14,21 @@ sudo apt-get upgrade
 # need this to get seriel interface with the pi
 #http://spellfoundry.com/sleepy-pi/setting-arduino-ide-raspbian/
 # Step 5 
-replace hostname automatically 
+# replace default hostname of "raspberrypi" with a customised name using sed : 
 sudo sed -i -- 's/raspberrypi/bot7/g' /etc/hosts; sudo sed -i -- 's/raspberrypi/bot7/g' /etc/hostname
 #alternatively this can be done manually ( I like to use vim)
 sudo apt-get install vim -y 
-
 # replace raspberry with the name of your choosing:
 sudo vim /etc/hosts 
 sudo vim /etc/hostname
 # then implement:
 sudo /etc/init.d/hostname.sh; sudo reboot
 
-# install arduino and dependencies
+#Step 6 install the arduio IDE and dependencies:
 sudo apt-get install arduino
 
-#Arduino IDE does not recognise this port. It prefers to use /dev/ttyS0. 
-#To get round this we link /dev/ttyS0 to /dev/ttyAMA0 and make sure this link is permanent. 
-#To do this, we need to create a file called /etc/udev/rules.d/99-tty.rules using a text editor.
-
-# We communicate and program the PiBots microchip overseriel.  
-# To do this we need to set up the 
-# 1 disable normal output to serial:
-
-
+# Step 7. We then need to configure the GPIO's serial for communicating with the Atmel328P (by default the Pi'serial
+# is used to output a terminal ) This is done in the follwing steps:
 sudo systemctl stop serial-getty@ttyS0.service
 sudo systemctl disable serial-getty@ttyS0.service
 # now we configure the pi with :
@@ -47,43 +39,7 @@ enable_uart=1
 sudo vim /boot/cmdline.txt
 # remove console=serail0,115200
 
-# alternatively this can be done through raspberry config.
-#Please verify this works the same . (best to ingnore for now!)
-sudo raspi-config
-# 9 advanced options
-# A7 Serial Enable/Disable shell and kernal messages over serial
-# Would you like a login shell to be accessible oer serial?
-# NO  
-
-# The next step is to rename the serial device name for arduiono
-# this is not neccessary for Raspberry Pi 3.
-#apparently this is not true for the raspberry pi 3 so this is not required:
-
-#
-sudo vim /etc/udev/rules.d/99-tty.rules
-# Add this 
-KERNEL==”ttyAMA0″,SYMLINK+=”ttyS0″ GROUP=”dialout”
-KERNEL==”ttyACM0″,SYMLINK+=”ttyS1″ GROUP=”dialout”
-# then reboot 
-sudo reboot
-
-
-# this is what I did for RPI3:
-sudo systemctl stop serial-getty@ttyS0.service 
-sudo systemctl disable serial-getty@ttyS0.service
-# also in Jessie enable uart
-sudo vim /boot/config.txt
-# then add:
-enable_uart=1
-# When Raspbian boots up it outputs boot information to the serial port
-# To disable this we need to edit the /boot/cmdline.txt
-sudo vim /boot/cmdline.txt
-
-# update avr dude so we can use a GPIO pin for reset
-
-# /dev/ttyS0
-# No such file or directory avrdude-original done.  Thank you.
-
+# Step 8  we then need to modify avrdude to be programmed over the Pi:
 git clone  https://github.com/CisecoPlc/avrdude-rpi
 
 cd avrdude-rpi
@@ -101,24 +57,12 @@ sudo vim /usr/bin/autoreset
 # currently issues here so chcking Jasons version!UPDATE pin number 7 works on Pi 2
 # BUT !! Pin 4 works for RASPI Pi 4 makes no sense!?
 
-# The above did not work so trying another way from Adafruit
-sudo rm /usr/bin/autoreset ; sudo rm /usr/bin/avrdude-autoreset
-sudo mv  /usr/bin/avrdude-original /usr/bin/avrdude
-
-
 # now install ino to push firmware to Atmega328P
 sudo pip install ino
 
+# Step 9. We are now in a position to use avdude to flash the microcontroller
+# 
 
-cd /usr/share/arduino/hardware/arduino
-sudo mv /usr/share/arduino/hardware/arduino/programmers.txt /usr/share/arduino/hardware/arduino/programmers.txt.bak
-
-sudo mv programmers.txt /usr/share/arduino/hardware/arduino/programmers.txt
-
-
-
-# Notes for you to get code working 
-# On command line in robot update the Python path:
 
 # First we clone the repo with 
 
@@ -129,6 +73,53 @@ git clone -b callback https://github.com/pi-bot/v2
 cd /home/pi/v2/arduino-firmware/
 ./upload.sh
 #makesure the board power switch is on
+
+# This should successfully upload and check the code sent to the microcontroller.
+# Happy days ! 
+
+# The next challenge is to set this up with the arduino IDE
+# For this all we need to do is edit the boards.txt file.
+
+cd /usr/share/arduino/hardware/arduino
+
+sudo vim boards.txt 
+
+# For this i'm going to keep the Uno board but deleted everything else as well as adding a PiBOt board:
+
+##############################################################
+
+pibot.name=PiBot
+
+pibot.upload.protocol=arduino
+pibot.upload.maximum_size=30720
+pibot.upload.speed=57600
+
+pibot.bootloader.low_fuses=0xFF
+pibot.bootloader.high_fuses=0xDA
+pibot.bootloader.extended_fuses=0x05
+pibot.bootloader.path=arduino:atmega
+pibot.bootloader.file=ATmegaBOOT_168_atmega328_pro_8MHz.hex
+pibot.bootloader.unlock_bits=0x3F
+pibot.bootloader.lock_bits=0x0F
+
+pibot.build.mcu=atmega328p
+pibot.build.f_cpu=8000000L
+pibot.build.core=arduino:arduino
+pibot.build.variant=arduino:standard
+
+#This works but I'm getting a avr-original not in synce error after code is pushed
+
+
+# Notes for you to get code working 
+# On command line in robot update the Python path:
+
+
+
+########################################################
+# Notes below for getting python libraries working
+########################################################
+
+
 #before we test we need to tell the system where the modules are:
 echo "export PYTHONPATH=\$PYTHONPATH:~/v2/python-code" >> ~/.profile
 # then update bash profile to implement the change ins PYTHONPATH
