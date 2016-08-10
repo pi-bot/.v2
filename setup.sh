@@ -3,21 +3,22 @@
 # For now its a collection of steps to help get this set up.  Will probably make sense to core team only.
 # TBC
 
-# PiBot dependecies:
-# Trying the port to RPIv3 with new Jessie image (may 2016)
-# uodate all firmware
+#steps for successfull set up of Arduino IDE connected to the PiBoard and python libraries
+# Step 1 download and burn latest Raspian image to SD card  (may 27 2016)
+# Step 2 connect sd card to Raspberry PI v3 with monitor, keyboard, and ethernet (ie internet)
+# Step 3 update the OS
+# boot and then open termainal
+# Step 4 update the OS:
 sudo apt-get update 
 sudo apt-get upgrade 
 # need this to get seriel interface with the pi
 #http://spellfoundry.com/sleepy-pi/setting-arduino-ide-raspbian/
-# struggling to get this to work on a raspberry Pi 3
-# it goes blank arfter running the autoreset file.  Works fine on RPi v2 though
-
-# replace hostname 
-#automatically 
-sudo sed -i -- 's/raspberrypi/pibot3/g' /etc/hosts; sudo sed -i -- 's/raspberrypi/pibot3/g' /etc/hostname
-# or manually I like to use vim
+# Step 5 
+replace hostname automatically 
+sudo sed -i -- 's/raspberrypi/bot7/g' /etc/hosts; sudo sed -i -- 's/raspberrypi/bot7/g' /etc/hostname
+#alternatively this can be done manually ( I like to use vim)
 sudo apt-get install vim -y 
+
 # replace raspberry with the name of your choosing:
 sudo vim /etc/hosts 
 sudo vim /etc/hostname
@@ -34,14 +35,29 @@ sudo apt-get install arduino
 # We communicate and program the PiBots microchip overseriel.  
 # To do this we need to set up the 
 # 1 disable normal output to serial:
+
+
+sudo systemctl stop serial-getty@ttyS0.service
+sudo systemctl disable serial-getty@ttyS0.service
+# now we configure the pi with :
+sudo vim /boot/config.txt
+# to the end of the file add:
+enable_uart=1
+# we also need to update the /boot/
+sudo vim /boot/cmdline.txt
+# remove console=serail0,115200
+
+# alternatively this can be done through raspberry config.
+#Please verify this works the same . (best to ingnore for now!)
 sudo raspi-config
 # 9 advanced options
 # A7 Serial Enable/Disable shell and kernal messages over serial
 # Would you like a login shell to be accessible oer serial?
 # NO  
 
-
-#apparently this is not true for the raspberry pi so this is not required:
+# The next step is to rename the serial device name for arduiono
+# this is not neccessary for Raspberry Pi 3.
+#apparently this is not true for the raspberry pi 3 so this is not required:
 
 #
 sudo vim /etc/udev/rules.d/99-tty.rules
@@ -80,9 +96,10 @@ sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
 sudo vim /usr/bin/autoreset
 
 #Change line 15 to :
-     pin = 4
+     pin = 7
 
-# currently issues here so chcking Jasons version!
+# currently issues here so chcking Jasons version!UPDATE pin number 7 works on Pi 2
+# BUT !! Pin 4 works for RASPI Pi 4 makes no sense!?
 
 # The above did not work so trying another way from Adafruit
 sudo rm /usr/bin/autoreset ; sudo rm /usr/bin/avrdude-autoreset
