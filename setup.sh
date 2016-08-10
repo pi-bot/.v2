@@ -110,6 +110,13 @@ sudo mv  /usr/bin/avrdude-original /usr/bin/avrdude
 sudo pip install ino
 
 
+cd /usr/share/arduino/hardware/arduino
+sudo mv /usr/share/arduino/hardware/arduino/programmers.txt /usr/share/arduino/hardware/arduino/programmers.txt.bak
+
+sudo mv programmers.txt /usr/share/arduino/hardware/arduino/programmers.txt
+
+
+
 # Notes for you to get code working 
 # On command line in robot update the Python path:
 
