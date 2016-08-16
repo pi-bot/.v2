@@ -50,12 +50,8 @@ class Motors():
         return value
 
     def stop(self):
-
         self.board.sendCommand(Commands.WRITE_DIGITAL,LEFT_MOTOR_SPEED,0)
         self.board.sendCommand(Commands.WRITE_DIGITAL,RIGHT_MOTOR_SPEED,0)
-        #self.position(0)
-        #self.rotation(0)
-
 
     # lower level command to move
     def position(self,pos,speed,block):
@@ -84,10 +80,10 @@ class Motors():
 
     # helper commands to rotate
     def turnLeft(self,angle,speed=DEFAULT_SPEED,block=True):
-        self.rotation(-angle,speed,block)
+        self.rotate(-angle,speed,block)
 
     def turnRight(self,angle,speed=DEFAULT_SPEED,block=True):
-        self.rotation(angle,speed,block)
+        self.rotate(angle,speed,block)
 
     def __del__(self):
         self.stop()
