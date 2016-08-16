@@ -168,3 +168,8 @@ bool checkPinNumber(int *pin)
   
   for(int i=0;i<6;i++)
   {
+	if(*pin == analogPins[i][1])
+	*pin = analogPins[i][0];
+}
+return true;
+}
