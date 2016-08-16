@@ -10,19 +10,19 @@
 #define MAX_MESSAGE_LENGTH 50
 #define MAX_RESPONSE_LENGTH 20
 
-String inputMessage = "";
-boolean inputMessageComplete = false;
-
 ENCODER R_ENC;
 ENCODER L_ENC;
 
+String inputMessage = "";
+boolean inputMessageComplete = false;
+
 void setup()
 {
-  // start serial port at 9600 bps:
-  Serial.begin(115200);
-  // reserve 200 bytes for the inputMessage:
-  inputMessage.reserve(MAX_MESSAGE_LENGTH);
-  setupETM();
+	// start serial port at 9600 bps:
+	Serial.begin(115200);
+	// reserve 200 bytes for the inputMessage:
+	inputMessage.reserve(MAX_MESSAGE_LENGTH);
+	setupETM();
   
 	R_ENC.init(RIGHT_ENCODER_A,RIGHT_ENCODER_B,R_EncHandler);
 	L_ENC.init(LEFT_ENCODER_A,LEFT_ENCODER_B,L_EncHandler);
@@ -79,36 +79,6 @@ void loop()
        char distanceValue[5];
        sprintf(distanceValue,"%i",readUltrasound(pin));
        answer =+ distanceValue;
-       break;
-  case READ_LEFT_ENCODER:
-       //if(value<0){
-       //  char leftEncoderValue[7];
-       //  sprintf(leftEncoderValue,"%i",getLeftCount());
-       //  answer =+ leftEncoderValue;
-      // }
-      // else{
-      //   setLeftCount(value);
-      // }
-       break;
-  case READ_RIGHT_ENCODER:
-      // if(value<0){
-       //  char rightEncoderValue[7];
-       //  sprintf(rightEncoderValue,"%i",getRightCount());
-       //  answer =+ rightEncoderValue;
-       //}
-       //else{
-      //   setRightCount(value);
-      // }
-       break;
-  case WRITE_NEO_PIXEL:
-       //int redValue;
-       //int greenValue;
-       //int blueValue;
-       //sscanf(inputMessageCharArray,"%i,%i,%i,%i,%i,%i",&command, &pin, &value, &redValue, &greenValue, &blueValue);
-       //writeNeoPixel(value,redValue,greenValue,blueValue);
-       break;
-  case RESET_NEO_PIXELS:
-       //clearNeoPixels();
        break;
   case POSITION:
 	  movePos(pin,value);
