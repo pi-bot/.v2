@@ -34,6 +34,11 @@ void loop()
 {
   serialRecieve();
   checkRFID();
+  
+ if(get_movement()){
+   calcPID();
+   }
+  
   if(!inputMessageComplete)
     return;
     
