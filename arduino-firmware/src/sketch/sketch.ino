@@ -86,10 +86,10 @@ void loop()
        answer =+ distanceValue;
        break;
   case POSITION:
-	  movePos(pin,value);
+	  movePos(value,pin);
 	  break;
   case ROTATE:
-	  moveRotate(pin,value);
+	  moveRotate(value,pin);
 	  break;
   case READ_RIGHT_DISTANCE:
 	  char rightDistance[5];
