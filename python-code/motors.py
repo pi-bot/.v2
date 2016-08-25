@@ -18,6 +18,8 @@ MOTOR_MODE = 7	    	   #Enable motor controller
 
 DEFAULT_SPEED = 50
 
+DUMMY_PIN = arduino.A3  # Let the pin value be accepted for the pos/ rotation functions
+
 class Motors():
     def __init__(self):
         self.board = Arduino()
@@ -111,10 +113,10 @@ class Motors():
 
 
     def position(self,pos,speed):
-        self.board.sendCommand(Commands.POSITION,speed,pos)
+        self.board.sendCommand(Commands.POSITION,DUMMY_PIN,pos)
 
     def goPosition(self,pos):
-        self.board.sendCommand(Commands.POSITION,speed,position)
+        self.board.sendCommand(Commands.POSITION,DUMMY_PIN,position)
 
         value = self.board.sendCommand(Commands.AT_POSITION,0,0)
 	while(value==0):
@@ -130,7 +132,7 @@ class Motors():
         self.position(-pos)
 
     def rotate(self,angle,speed):
-        self.board.sendCommand(Commands.ROTATE,speed,angle)
+        self.board.sendCommand(Commands.ROTATE,DUMMY_PIN,angle)
 
     def turnLeft(self,angle,speed=DEFAULT_SPEED):
         self.rotation(speed, -angle)
