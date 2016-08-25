@@ -111,10 +111,10 @@ class Motors():
 
 
     def position(self,pos,speed):
-        self.board.sendCommand(Commands.POSITION,pos,speed)
+        self.board.sendCommand(Commands.POSITION,speed,pos)
 
     def goPosition(self,pos):
-        self.board.sendCommand(Commands.POSITION,pos,speed)
+        self.board.sendCommand(Commands.POSITION,speed,position)
 
         value = self.board.sendCommand(Commands.AT_POSITION,0,0)
 	while(value==0):
@@ -130,13 +130,13 @@ class Motors():
         self.position(-pos)
 
     def rotate(self,angle,speed):
-        self.board.sendCommand(Commands.ROTATE,angle,speed)
+        self.board.sendCommand(Commands.ROTATE,speed,angle)
 
     def turnLeft(self,angle,speed=DEFAULT_SPEED):
-        self.rotation(-angle,speed)
+        self.rotation(speed, -angle)
 
     def turnRight(self,angle,speed=DEFAULT_SPEED):
-        self.rotation(angle,speed)
+        self.rotation(speed, angle)
 
     def __del__(self):
         self.stop()
