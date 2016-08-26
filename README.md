@@ -32,6 +32,16 @@ sudo mv ~/.v2/python-code  /usr/lib/python2.7/pibot
 ```
 Now we must call modules in all python using a **pibot.modulename** convention.
 
+##4 Use the new movement functions
+
+The new movement functions are demonstrated in a new test:
+
+```
+cd ~/.v2/tests
+python NewMattTest.py
+```
+All documents and test codes can now be updated! 
+
 Any questions/comments email **harry@pibot.org**
 
 See License for details of copying and using the code.
