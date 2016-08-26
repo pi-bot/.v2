@@ -28,7 +28,8 @@ Messages onscreen will show that this is successfull
 OK now we can place the python code deep into the system:
 
 ```
-sudo cp ~/.v2/python-code  /usr/lib/python2.7/pibot
+sudo mkdir /usr/lib/python2.7/pibot
+sudo cp ~/.v2/python-code/*  /usr/lib/python2.7/pibot/
 ```
 Now we must call modules in all python using a **pibot.modulename** convention.
 
