@@ -3,12 +3,12 @@
 
 Instructions for getting code working on all robots.
 
-##1. Download Repo.
+##1. Download Repo
 
-First delete the old repo:
+First delete the old repo and pibot folder:
 
 ```
-sudo rm -rf ~/v2
+sudo rm -rf ~/v2 ~/pibot 
 ```
 Now install the new repo:
 ```
