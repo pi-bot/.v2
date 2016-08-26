@@ -110,7 +110,7 @@ void moveRotate(double deltaAngle, int speed)
 //   speed = 80;
 // }
 //  else if(speed>100){
-   speed = 180;
+   speed = 220;
 //  }
   L_PID_Pos.SetOutputLimits(-speed,speed);
   L_ENC.reset();
