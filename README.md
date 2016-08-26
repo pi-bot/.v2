@@ -14,10 +14,21 @@ Now install the new repo:
 ```
 git clone https://github.com/pi-bot/.v2
 ```
+
+
+##2 Update the firmware
+This pushes the fixed code to the microcontroller:
+```
+cd ~/.v/arduino-firmware 
+./upload.sh
+```
+Messages onscreen will show that this is successfull
+
+##3 Install the python modules
 OK now we can place the python code deep into the system:
 
 ```
-sudo mv .v/python-code  /usr/lib/python2.7/pibot
+sudo mv ~/.v/python-code  /usr/lib/python2.7/pibot
 ```
 Now we must call modules in all python using a **pibot.modulename** convention.
 
