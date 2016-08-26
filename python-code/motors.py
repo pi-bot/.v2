@@ -136,16 +136,16 @@ class Motors():
 
 
     def moveForward(self,pos,speed=DEFAULT_SPEED, block=True):
-        self.position(pos)
+        self.position(pos, speed, block)
 
     def moveBackward(self,pos,speed=DEFAULT_SPEED, block=True):
-        self.position(-pos)
+        self.position(-pos, speed,block)
 
     def turnLeft(self,angle,speed=DEFAULT_SPEED, block=True):
-        self.rotate(speed, -angle)
+        self.rotate( -angle, speed, block)
 
     def turnRight(self,angle,speed=DEFAULT_SPEED, block=True):
-        self.rotate(speed, angle)
+        self.rotate( angle, speed, block)
 
     def __del__(self):
         self.stop()
