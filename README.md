@@ -3,7 +3,7 @@
 
 Instructions for getting code working on all robots.
 
-##1. Download Repo
+##1 Download Repo
 
 First delete the old repo and pibot folder:
 
