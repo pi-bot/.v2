@@ -1,7 +1,3 @@
-#!/bin/bash
-# this is a bash file intended to be run to install all the dependecies for the PiBot Code base
-# For now its a collection of steps to help get this set up.  Will probably make sense to core team only.
-# TBC
 
 #steps for successfull set up of Arduino IDE connected to the PiBoard and python libraries
 # Step 1 download and burn latest Raspian image to SD card  (may 27 2016)
