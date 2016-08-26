@@ -111,19 +111,16 @@ class Motors():
             command = 255
         return command
 
-
-    def position(self,pos,speed):
+     # lower level command to move
+    def position(self,pos,speed,block):
         self.board.sendCommand(Commands.POSITION,DUMMY_PIN,pos)
-
-    def goPosition(self,pos):
-        self.board.sendCommand(Commands.POSITION,DUMMY_PIN,position)
-
-        value = self.board.sendCommand(Commands.AT_POSITION,0,0)
-	while(value==0):
-		print("on my way")
-		sleep(0.2)
-
-
+                
+        if block:
+            there=int(self.getAtPosition())
+            while int(self.getAtPosition()) == 0:
+                print("on my way")
+                sleep(0.2)
+            print("got there! - Now I'll do  next command")
 
     def moveForward(self,pos,speed=DEFAULT_SPEED):
         self.position(pos,speed)
