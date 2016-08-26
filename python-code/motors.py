@@ -111,7 +111,7 @@ class Motors():
         return command
 
      # lower level command to move
-    def position(self,pos,speed=DEFAULT_SPEED,block=True):
+    def position(self,pos,speed,block):
         self.board.sendCommand(Commands.POSITION,DUMMY_PIN,pos)
                 
         if block:
@@ -123,7 +123,7 @@ class Motors():
 
 
 
-    def rotate(self,angle,speed=DEFAULT_SPEED,block):
+    def rotate(self,angle,speed,block):
         self.board.sendCommand(Commands.ROTATE,DUMMY_PIN,angle)
 
         if block:
