@@ -72,6 +72,21 @@ pssh -P -h robots.txt -o foo -x -i "python trainingtest.py"
 ```
 This is what I used before
 ```
+cd ~/.v2 && git pull
+```
+
+pssh -P -h nodes.txt -i "cd ~/.v2 && git pull"
+
+
+```
+cd ~/.v2/arduino-firmware/ && ./upload.sh
+```
+
+```
+python ~/.v2/tests/NewMattTest.py
+```
+
+```
 pssh -P -h robots.txt -o foo -x "cd /home/pi/v2/tests/; bash" -i "python testAll.py"
 ```
 
