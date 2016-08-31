@@ -13,7 +13,7 @@
 
 
 // DEFAULTS
-#define POS_TOLERANCE 7
+#define POS_TOLERANCE 9
 
 #define CLICKS_PER_CM   9.15
 #define CLICKS_PER_DEG	1.06
