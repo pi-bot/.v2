@@ -14,7 +14,8 @@ To operate at 12MHz a few changes need to be made
 See [here](http://ceptimus.co.uk/?p=102) for details of changes to the bootloader
 
 ###Boards.txt
-There are a couple of changes to be made here:
+There are a couple of changes to be made here : **/usr/share/arduino/hardware/arduino/boards.txt**
+
 
 ```
 atmega328bb12.bootloader.file=optiboot_atmega328_12.hex
@@ -22,6 +23,8 @@ atmega328bb12.build.f_cpu=12000000L
 ```
 
 ###SoftwareSerial.cpp
+The file is found **/usr/share/arduino/libraries/SoftwareSerial/SoftwareSerial.cpp**
+
 The Software Serial Library is one that does not have support for 12Mhz operation by default it can be added by add the following before **#elif F_CPU == 8000000** in the code about line 128:
 
 ```
