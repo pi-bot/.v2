@@ -16,6 +16,10 @@ See [here](http://ceptimus.co.uk/?p=102) for details of changes to the bootloade
 ###Boards.txt
 There are a couple of changes to be made here : **/usr/share/arduino/hardware/arduino/boards.txt**
 
+```
+sudo vim /usr/share/arduino/hardware/arduino/boards.txt
+```
+ Then
 
 ```
 atmega328bb12.bootloader.file=optiboot_atmega328_12.hex
@@ -27,6 +31,11 @@ The file is found **/usr/share/arduino/libraries/SoftwareSerial/SoftwareSerial.c
 
 The Software Serial Library is one that does not have support for 12Mhz operation by default it can be added by add the following before **#elif F_CPU == 8000000** in the code about line 128:
 
+```
+sudo vim /usr/share/arduino/libraries/SoftwareSerial/SoftwareSerial.cp
+```
+
+Then 
 ```
 #elif F_CPU == 12000000
 static const DELAY_TABLE PROGMEM table[] =
