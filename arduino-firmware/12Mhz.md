@@ -5,13 +5,13 @@ The new pibot version has dropped the voltage of the micro to 3.3v to give bette
 
 
 ##Running at 12Mhz 
-To operate at 12MHz a few cahanges need to be made
+To operate at 12MHz a few changes need to be made
 -bootloader
 -Boards.txt
 -SoftwareSerial.cpp
 
 ###bootloader
-See [her](http://ceptimus.co.uk/?p=102) for details of changes to the bootloader
+See [here](http://ceptimus.co.uk/?p=102) for details of changes to the bootloader
 
 ###Boards.txt
 There are a couple of changes to be made here:
