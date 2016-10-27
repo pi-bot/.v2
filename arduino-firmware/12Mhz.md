@@ -60,3 +60,7 @@ const int XMIT_START_ADJUSTMENT = 5;
 
 N.B. I'm still getting timeouts when trying to upload a sketch so I will investigate this further now.
 
+```
+skt500_recv():programmer is not responding.
+```
+
