@@ -1,38 +1,76 @@
-## Intro
+# Intro
+
+This guide will:
+
+1. Install the latest version of Raspbian and update
+2. Install and configure **AVR dude** to communicate and test the PiBot board.
+3. Give tips and hints on starting the learning
+
+## 1 Install latest Raspian.
+ The latest version is: **Raspian Jessie with Pixel**
+
+- **Version**:September 2016
+- **Release date**:2016-09-23
+- **Kernel version**:4.4
+
+[Here](https://www.raspberrypi.org/documentation/installation/installing-images/) is the official guide for installing images.
+
+Once you have a working Raspian OS on the Raspberry Pi and a working network connection you can finish by udpdating the system with:
+```
+sudo apt-get update && sudo apt-get upgrade
+```
+
+The sofware that we use to learn programming and control the robot is a modified version of the **Arduino IDE**. The next step is to install this.  
+
+```
+sudo apt-get install arduino
+```
+
+
+## 2  Communicating with the PiBot Board
 
 **avrdude** is a command-line interface for downloading and uploading to microcontrollers and enabling automation.  It has many features and is also used by the Arduiono IDE. See [here]( http://www.ladyada.net/learn/avr/avrdude.html) for a good overview:
 We use it to automate the downloading and and uploading of code to the PiBot arduino compatible microcontroller (Atmel 328P)
-This guide will help you 
-- Configure your Raspberry Pi and Download Arduino IDE (avrdude is included in the install)
+This guide will help you:
+
+- Configure your Raspberry Pi and Arduino IDE to work with the PiBot board (avrdude is included in the install)
 - Configure the serial output of the Raspberry Pi to link with the Microcontroller (By default the linux kernal outputs to the Raspberry Pi's Serial port)
 - Modify the setup with avrdude so that the Raspberry Pi can interface with it seamlessly (this involves setting up a unique reset pin instead of the typical reset pin normally used with arudinos)
 
-** NB ** these setup instructions need to be different for the Raspberry Pi 3 so please look out for specific instructions for that
+** NB ** these setup instructions are different for the Raspberry Pi and other Pi versions.   Please look out for specific instructions relating to your speciific version.This set up is compatible with the new Raspain Jessie operating system only. 
+
+OK here we go:
 
 
-This set up is compatible with the new Raspain Jessie operating system only. OK here we go:
+### Setting up the serial interface
 
-###first upgrade Jessie
-sudo apt-get update && sudo apt-get upgrade
-### then install arduino:
-sudo apt-get install arduino
-### then disable kernal messages being sent to serial: For all Pi's apart from Pi 3 do:
+By default kernal messages are sent to serial so the first step is to disable this.
+For all Pi's apart from Pi 3 do:
+```
 sudo systemctl stop serial-getty@ttyAMA0.service
 sudo systemctl disable serial-getty@ttyAMA0.service
-### If you have a Pi 3 you do the following instead (only do this if you have a Pi 3):
+```
+If you have a Pi 3 you do the following instead (only do this if you have a Pi 3):
+```
 sudo systemctl stop serial-getty@ttyS0.service 
 sudo systemctl disable serial-getty@ttyS0.service
-### Then add this line to the Raspberry Pi config file to enable serial on the GPIO pins:
+```
+Then add this line to the Raspberry Pi config file to enable serial on the GPIO pins:
+```
 sudo nano /boot/config.txt
-# add this line to the end:
+```
+add this line to the end:
 ```
 enable_uart=1
 ```
-### then we need to delete some data from the /boot/cmdline.txt file 
+### Edit cmdline.txt
+
+Then we need to delete some data from the /boot/cmdline.txt file 
 ```
 sudo nano /boot/cmdline.txt
 ```
 remove the string 'console=serail0,115200'
+
 ###mapping
 Then setup the mapping for linking the default arduiono serial interface with ours 
 **N.B.** this step is not required for the Raspberry Pi 3 which already uses the arduino default.
