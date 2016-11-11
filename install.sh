@@ -226,7 +226,12 @@ else
   echo "Board is not a Raspberry Pi 3"
   echo "Serial number is :" $SERIAL
 fi
+Check if the script is run as root:
 
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 
 
