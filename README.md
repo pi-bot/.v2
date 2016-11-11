@@ -46,3 +46,9 @@ All documents and test codes can now be updated!
 Any questions/comments email **harry@pibot.org**
 
 See License for details of copying and using the code.
+
+
+wget https://github.com/pi-bot/.v2/blob/master//core-tests/stepper.py
+wget https://github.com/pi-bot/.v2/blob/master//core-tests/stepper2.py
+
+
