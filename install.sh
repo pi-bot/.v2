@@ -11,8 +11,8 @@ echo "Requirements:"
 echo "1) Must be connected to the internet"
 echo "2) This script must be run as root user"
 echo " "
-echo "Steps:"
-echo "1) Installs package dependencies:"
+echo "Assumptions:"
+echo "1) It is assummed that the following dependencies are included in your Raspian Distro:"
 echo "   - python-pip       alternative Python package installer"
 echo "   - git              fast, scalable, distributed revision control system"
 echo "   - libi2c-dev       userspace I2C programming library development files"
@@ -21,6 +21,8 @@ echo "   - python-rpi.gpio  Python GPIO module for Raspberry Pi"
 echo "   - i2c-tools        This Python module allows SMBus access through the I2C /dev"
 echo "   - python-smbus     Python bindings for Linux SMBus access through i2c-dev"
 echo "   - python3-smbus    Python3 bindings for Linux SMBus access through i2c-dev"
+echo "REQUIRED PACKAGES:"
+echo "1) The following dependencies will be downloaded as part of this install:"
 echo "   - arduino          AVR development board IDE and built-in libraries"
 echo "   - minicom          friendly menu driven serial communication program"
 echo "2) Clone, build wiringPi in GrovePi/Script and install it"
@@ -67,7 +69,7 @@ fi
 echo " "
 echo "Installing Dependencies"
 echo "======================="
-sudo apt-get install libi2c-dev python-serial i2c-tools arduino minicom python-dev -y
+sudo apt-get install libi2c-dev arduino minicom python-dev -y
 sudo apt-get purge python-rpi.gpio -y
 sudo apt-get purge python3-rpi.gpio -y
 sudo apt-get install python-rpi.gpio -y
@@ -198,4 +200,11 @@ echo "To finish changes, we will reboot the Pi."
 echo "Pi must reboot for changes and updates to take effect."
 echo "If you need to abort the reboot, press Ctrl+C.  Otherwise, reboot!"
 echo "Rebooting in 5 seconds!"
+
+
+kernel_version=`uname -a|awk '{print $3}'`
+if [ $kernel_version == "4.4" ]
+then
+    echo "version is 4.4"
+fi
 
