@@ -1,6 +1,5 @@
 #! /bin/bash
 echo -e "\E[32m"
-
 echo " ____  __  ____   __  ____      ____  ____  ____  _  _  ____  ";
 echo "(  _ \(  )(  _ \ /  \(_  _)    / ___)(  __)(_  _)/ )( \(  _ \ ";
 echo " ) __/ )(  ) _ ((  O ) )(      \___ \ ) _)   )(  ) \/ ( ) __/ ";
@@ -39,7 +38,7 @@ echo "   - in /usr/share/arduino/hardware/arduino creates backup of programmers.
 echo " "
 echo "Special thanks to Joe Sanford at Tufts University. This script was derived from his work. Thank you Joe!"
 echo " "
-echo "Raspberry Pi wil reboot after completion."
+echo "Raspberry Pi will reboot after completion."
 echo " "
 echo " "
 sleep 5
@@ -68,7 +67,7 @@ fi
 echo " "
 echo "Installing Dependencies"
 echo "======================="
-sudo apt-get install python-pip git libi2c-dev python-serial i2c-tools python-smbus python3-smbus arduino minicom python-dev -y
+sudo apt-get install libi2c-dev python-serial i2c-tools arduino minicom python-dev -y
 sudo apt-get purge python-rpi.gpio -y
 sudo apt-get purge python3-rpi.gpio -y
 sudo apt-get install python-rpi.gpio -y
