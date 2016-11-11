@@ -201,10 +201,16 @@ echo "Pi must reboot for changes and updates to take effect."
 echo "If you need to abort the reboot, press Ctrl+C.  Otherwise, reboot!"
 echo "Rebooting in 5 seconds!"
 
+Get Kernal Version 
 
 kernel_version=`uname -a|awk '{print $3}'`
 if [ $kernel_version == "4.4" ]
 then
     echo "version is 4.4"
 fi
+
+Get Hardware Version:
+cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }'
+
+
 
