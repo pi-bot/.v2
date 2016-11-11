@@ -212,5 +212,6 @@ fi
 Get Hardware Version:
 cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }'
 
-
+Revision : a21041
+cat /proc/cpuinfo | grep 'Revision' | awk '{print $3}' | sed 's/^1000//'
 
