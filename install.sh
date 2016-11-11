@@ -213,5 +213,20 @@ Get Hardware Version:
 cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }'
 
 Revision : a21041
-cat /proc/cpuinfo | grep 'Revision' | awk '{print $3}' | sed 's/^1000//'
+REVISION="(cat /proc/cpuinfo | grep 'Revision' | awk '{print $3}' | sed 's/^1000//')"
+SERIAL="$(cat /proc/cpuinfo | grep Serial | cut -d ':' -f 2)"
+echo $SERIAL
+if [ "$REVISION" = "a02082" ]
+then
+  echo "Board is Raspberry Pi version 3. made by sony in the UK (Newport)"
+  echo "Serial number is : $SERIAL"
+else if [ "$REVISION" = "a22082" ]
+  echo "Board is Raspberry Pi version 3. made in China"
+else 
+  echo "Board is not a Raspberry Pi 3"
+  echo "Serial number is :" $SERIAL
+fi
+
+
+
 
