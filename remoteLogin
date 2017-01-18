@@ -1,0 +1,29 @@
+Change username
+Set u Avahi
+
+```sudo vim /etc/hosts```
+
+Then: 
+```sudo vim /etc/hostname```
+
+```sudo insserv avahi-daemon```
+
+```sudo pico /etc/avahi/services/multiple.service```
+
+
+```
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+        <name replace-wildcards="yes">%h</name>
+        <service>
+                <type>_device-info._tcp</type>
+                <port>0</port>
+                <txt-record>model=RackMac</txt-record>
+        </service>
+        <service>
+                <type>_ssh._tcp</type>
+                <port>22</port>
+        </service>
+</service-group>
+```
