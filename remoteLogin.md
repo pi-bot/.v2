@@ -27,6 +27,28 @@ Then:
         </service>
 </service-group>
 ```
+###KEy Pair Authentication 
+Now that avahi is set up we want to trasfer our shh public key from the mbp to the Raspi. First lets make the dir and file to contain the key (it may already exist). This also gives us the opportunity to test avahi. From a mac terminal i type:
+``` ssh pi@piBot5.local
+```
+Now that I'm in I can make the directory and file
+```
+mkdir .ssh
+touch .ssh/authorized_keys
+exit
+```
+Notice that I've exited the ssh session so I should now be in my mbp userspace. I can now transfer the key by: 
+
+```
+cat ~/.ssh/id_rsa.pub | ssh pi>@piBot5.local 'cat >> .ssh/authorized_keys'
+```
+This will ask for a password and then should complete the operation.  Now when I ssh in it should do so without requesting a password. Test:
+```
+ssh pi@piBot5.local
+```
+I'm in! Hooray!:)
+
+
 ###Burning the bootloader
 ```
 sudo avrdude -p atmega328p -P /dev/ttyS0 -c arduino -b 115200 -D -U flash:w:/usr/share/arduino/hardware/arduino/bootloaders/atmega/ATmegaBOOT_168_atmega328.hex:i -vv
