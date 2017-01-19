@@ -27,3 +27,7 @@ Then:
         </service>
 </service-group>
 ```
+###Burning the bootloader
+```
+sudo avrdude -p atmega328p -P /dev/ttyAMA0 -c arduino -b 115200 -D -U flash:w:.build/uno/firmware.hex:i -vv
+```
