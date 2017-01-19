@@ -31,3 +31,20 @@ Then:
 ```
 sudo avrdude -p atmega328p -P /dev/ttyS0 -c arduino -b 115200 -D -U flash:w:/usr/share/arduino/hardware/arduino/bootloaders/atmega/ATmegaBOOT_168_atmega328.hex:i -vv
 ```
+This seemed to brick the micro:(  I think the -D switch may not have been appropriate
+
+```
+-p <partno>                Required. Specify AVR device.
+  -b <baudrate>              Override RS-232 baud rate.
+  -c <programmer>            Specify programmer type.
+  -D                         Disable auto erase for flash memory
+  -i <delay>                 ISP Clock Delay [in microseconds]
+  -U <memtype>:r|w|v:<filename>[:format]
+                             Memory operation specification.
+                             Multiple -U options are allowed, each request
+  -v                         Verbose output. -v -v for more.
+```
+
+```
+sudo avrdude -p atmega328p -P /dev/ttyS0 -c arduino -U flash:w:/usr/share/arduino/hardware/arduino/bootloaders/atmega/ATmegaBOOT_168_atmega328.hex -vv
+```
