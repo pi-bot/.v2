@@ -29,5 +29,5 @@ Then:
 ```
 ###Burning the bootloader
 ```
-sudo avrdude -p atmega328p -P /dev/ttyAMA0 -c arduino -b 115200 -D -U flash:w:.build/uno/firmware.hex:i -vv
+sudo avrdude -p atmega328p -P /dev/ttyS0 -c arduino -b 115200 -D -U flash:w:/usr/share/arduino/hardware/arduino/bootloaders/atmega/ATmegaBOOT_168_atmega328.hex:i -vv
 ```
