@@ -44,7 +44,8 @@ This seemed to brick the micro:(  I think the -D switch may not have been approp
                              Multiple -U options are allowed, each request
   -v                         Verbose output. -v -v for more.
 ```
-
+This gives us a modified version:
 ```
 sudo avrdude -p atmega328p -P /dev/ttyS0 -c arduino -U flash:w:/usr/share/arduino/hardware/arduino/bootloaders/atmega/ATmegaBOOT_168_atmega328.hex -vv
 ```
+This seemed to be correct in that it flashed the chip however it did brick it.:(
