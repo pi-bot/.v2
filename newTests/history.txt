@@ -1,0 +1,190 @@
+    1  sudo apt-get update
+    2  sudo apt-get dist-upgrade
+    3  sudo apt-get update
+    4  sudo apt-get upgrade
+    5  sudo shutdown
+    6  history
+    7  sudo apt-get install python-pip
+    8  sudo apt-get install git
+    9  sudo apt-get install libi2c-dev i2c-tools minicom python-dev
+   10  sudo apt-get install libi2c-dev i2c-tools python-dev
+   11  sudo apt-get install libi2c-dev  minicom python-dev
+   12  sudo apt-get install libi2c-dev  python-dev
+   13  sudo apt-get install libi2c-dev  minicom python-dev
+   14  `uname -m
+   15  uname -m
+   16  cat /proc/cpuinfo
+   17  kernel_version=`uname -a|awk '{print $3}'`
+   18  if [ $kernel_version == "4.4" ]; then     echo "version is 4.4"; fi
+   19  uname -a|awk '{print $3}'
+   20  cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }'
+   21  cat /proc/cmdline 
+   22  cat /proc/cpuinfo | grep 'Revision' | awk '{print $3}' | sed 's/^1000//'
+   23  ==clear
+   24  clear
+   25  cat /boot/config.txt
+   26  cat /boot/cmdline.txt
+   27  cat /boot/config.txt
+   28  cat /boot/cmdline.txt
+   29  sed -man
+   30  cat /boot/cmdline.txt
+   31  sudo sed -e "s/console=serial0,115200//g" /boot/cmdline.txt
+   32  cat /boot/cmdline.txt
+   33  sudo   sed -e "s/console=serial0,115200//g" -i /boot/cmdline.txt
+   34  cat /boot/cmdline.txt
+   35  sudo ln -s /usr/bin/avrdude-autoreset /usr/bin/avrdude
+   36  cat /usr/bin/autoreset
+   37  sudo   sed -e "s/pin = 22/pin = 7/g" -i /usr/bin/autoreset
+   38  sudo   sed -e "s/time.sleep(0.12)/time.sleep(0.32)/g" -i /usr/bin/autoreset
+   39  cat /usr/bin/autoreset
+   40  cd /usr/
+   41  ls
+   42  cd bin
+   43  ls
+   44  cd /usr/share/arduino/hardware/arduino
+   45  ls
+   46  sudo vim boards.txt 
+   47  cd /tmp
+   48  sudo   mv boards.txt board.txt.bak
+   49  sudo   mv /tmp/boards.txt .
+   50  sudo   mv programmers.txt programmers.txt.bak
+   51  sudo   mv /tmp/programmers.txt .
+   52  vim test1.sh
+   53  chom -x test1.sh 
+   54  chmod  -x test1.sh 
+   55  .. test1.sh 
+   56  bash test1.sh 
+   57  vim test1.sh
+   58  bash test1.sh 
+   59  vim test1.sh
+   60  bash test1.sh 
+   61  vim test1.sh
+   62  bash test1.sh 
+   63  vim test1.sh
+   64  bash test1.sh 
+   65  x!
+   66  vim test1.sh
+   67  bash test1.sh 
+   68  vim test1.sh
+   69  bash test1.sh 
+   70  vim test1.sh
+   71  bash test1.sh 
+   72  vim test1.sh
+   73  bash test1.sh 
+   74  vim test1.sh
+   75  bash test1.sh 
+   76  vim test1.sh
+   77  bash test1.sh 
+   78  vim test1.sh
+   79  bash test1.sh 
+   80  vim test1.sh
+   81  bash test1.sh 
+   82  vim test1.sh
+   83  bash test1.sh 
+   84  vim test1.sh
+   85  bash test1.sh 
+   86  vim test1.sh
+   87  bash test1.sh 
+   88  vim test1.sh
+   89  sudo bash test1.sh 
+   90  vim test1.sh
+   91  sudo bash test1.sh 
+   92  ls
+   93  cd tempPiBot/
+   94  ls
+   95  cd avrdude-rpi/
+   96  ls
+   97  cd ../../
+   98  ls
+   99  vim test1.sh 
+  100  sudo reboot 
+  101  cd /usr/share/arduino/hardware/arduino
+  102  ls
+  103  ls -la
+  104  sudo chown root:root boards.txt 
+  105  sudo chown root:root programmers.txt 
+  106  sudo apt-get remove arduino
+  107  sudo apt-get install arduino
+  108  ls
+  109  cat test1.sh 
+  110  vim  test1.sh 
+  111  ls
+  112  vim boards.txt
+  113  sudo vim boards.txt
+  114  sudo vim programmers.txt
+  115  cs ~
+  116  cd ~'
+  117  cd ~
+  118  ls
+  119  git clone https://github.com/pi-bot/.v2
+  120  cd .v2
+  121  ls
+  122  cd arduino-firmware/
+  123  la
+  124  ls
+  125  ./ upload.sh
+  126  bash ./upload.sh 
+  127  sudo bash ./upload.sh 
+  128  cd /usr/bin/
+  129  ls
+  130  cin avrdude-original 
+  131  vim  avrdude-original 
+  132  vim  avrdude-autoreset 
+  133  vim  autoreset 
+  134  sudo vim /boot/config.txt
+  135  sudo vim /boot/cmdline.txt
+  136  vim  autoreset 
+  137  cd /usr/share/arduino/
+  138  ls
+  139  cd hardware/
+  140  ls
+  141  cd arduino/
+  142  ls
+  143  vim programmers.txt.bak
+  144  sudo mv programmers.txt v2.txt
+  145  sudo mv programmers.txt.bak programmers.txt
+  146  ls
+  147  cd /etc/udev/
+  148  ls
+  149  cd rules.d
+  150  ls
+  151  csd .v2
+  152  cd .v2
+  153  cd arduino-firmware/
+  154  ls
+  155  sudo ./ upload.sh
+  156  sudo bash ./ upload.sh
+  157  sudo bash upload.sh
+  158  cd .v2
+  159  ls
+  160  cd arduino-firmware/
+  161  ls
+  162  sudo ./upload.sh
+  163  cd /etc/
+  164  vim avrdude.conf
+  165  ls
+  166  cd /usr/share/arduino
+  167  ls
+  168  cd hardware
+  169  ls
+  170  cd arduino/
+  171  ls
+  172  cd~
+  173  cd ~
+  174  ls
+  175  cd .v2
+  176  ls
+  177  cd /usr/bin
+  178  ls
+  179  sudo vim avrdude-autoreset
+  180  sudo vim autoreset
+  181  cd .v2/arduino-firmware/
+  182  ls
+  183  sudo vim upload.sh
+  184  ./upload.sh
+  185  sudo ./upload.sh
+  186  cd .v2
+  187  cd arduino-firmware/
+  188  ls
+  189  cd ../
+  190  cd core-tests/
