@@ -1,0 +1,152 @@
+Terminal output on successfull flash (white prototype):
+
+pi@raspberrypi:~/.v2/arduino-firmware $ . upload.sh 
+sudo: ino: command not found
+sudo: ino: command not found
+
+avrdude-original: Version 6.1, compiled on Jul  7 2015 at 10:29:47
+                  Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+                  Copyright (c) 2007-2014 Joerg Wunsch
+
+                  System wide configuration file is "/etc/avrdude.conf"
+                  User configuration file is "/root/.avrduderc"
+                  User configuration file does not exist or is not a regular file, skipping
+
+                  Using Port                    : /dev/ttyS0
+                  Using Programmer              : arduino
+                  Overriding Baud Rate          : 115200
+done with autoreset
+                  AVR Part                      : ATmega328P
+                  Chip Erase delay              : 9000 us
+                  PAGEL                         : PD7
+                  BS2                           : PC2
+                  RESET disposition             : dedicated
+                  RETRY pulse                   : SCK
+                  serial program mode           : yes
+                  parallel program mode         : yes
+                  Timeout                       : 200
+                  StabDelay                     : 100
+                  CmdexeDelay                   : 25
+                  SyncLoops                     : 32
+                  ByteDelay                     : 0
+                  PollIndex                     : 3
+                  PollValue                     : 0x53
+                  Memory Detail                 :
+
+                                           Block Poll               Page                       Polled
+                    Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+                    ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+                    eeprom        65    20     4    0 no       1024    4      0  3600  3600 0xff 0xff
+                    flash         65     6   128    0 yes     32768  128    256  4500  4500 0xff 0xff
+                    lfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                    hfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                    efuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                    lock           0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                    calibration    0     0     0    0 no          1    0      0     0     0 0x00 0x00
+                    signature      0     0     0    0 no          3    0      0     0     0 0x00 0x00
+
+                  Programmer Type : Arduino
+                  Description     : Arduino
+                  Hardware Version: 3
+                  Firmware Version: 4.4
+                  Vtarget         : 0.3 V
+                  Varef           : 0.3 V
+                  Oscillator      : 28.800 kHz
+                  SCK period      : 3.3 us
+
+avrdude-original: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude-original: Device signature = 0x1e950f
+avrdude-original: safemode: lfuse reads as 0
+avrdude-original: safemode: hfuse reads as 0
+avrdude-original: safemode: efuse reads as 0
+avrdude-original: reading input file ".build/uno/firmware.hex"
+avrdude-original: writing flash (19550 bytes):
+
+Writing | ################################################## | 100% 2.63s
+
+avrdude-original: 19550 bytes of flash written
+avrdude-original: verifying flash memory against .build/uno/firmware.hex:
+avrdude-original: load data flash data from input file .build/uno/firmware.hex:
+avrdude-original: input file .build/uno/firmware.hex contains 19550 bytes
+avrdude-original: reading on-chip flash data:
+
+Reading | ################################################## | 100% 1.87s
+
+avrdude-original: verifying ...
+avrdude-original: 19550 bytes of flash verified
+
+avrdude-original: safemode: lfuse reads as 0
+avrdude-original: safemode: hfuse reads as 0
+avrdude-original: safemode: efuse reads as 0
+avrdude-original: safemode: Fuses OK (E:00, H:00, L:00)
+strace: |autoreset: Broken pipe
+strace: |autoreset: Broken pipe
+strace: |autoreset: Broken pipe
+strace: |autoreset: Broken pipe
+strace: |autoreset: Broken pipe
+
+avrdude-original done.  Thank you.
+
+strace: |autoreset: Broken pipe
+pi@raspberrypi:~/.v2/arduino-firmware $ 
+
+
+Output new red sample (error):
+pi@raspberrypi:~ $ cd .v2
+pi@raspberrypi:~/.v2 $ cd arduino-firmware/
+pi@raspberrypi:~/.v2/arduino-firmware $ . upload.sh 
+sudo: ino: command not found
+sudo: ino: command not found
+
+avrdude-original: Version 6.1, compiled on Jul  7 2015 at 10:29:47
+                  Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+                  Copyright (c) 2007-2014 Joerg Wunsch
+
+                  System wide configuration file is "/etc/avrdude.conf"
+                  User configuration file is "/root/.avrduderc"
+                  User configuration file does not exist or is not a regular file, skipping
+
+                  Using Port                    : /dev/ttyS0
+                  Using Programmer              : arduino
+                  Overriding Baud Rate          : 115200
+done with autoreset
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 1 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 2 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 3 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 4 of 10: not in sync: resp=0x00
+strace: |autoreset: Broken pipe
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 5 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 6 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 7 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 8 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 9 of 10: not in sync: resp=0x00
+avrdude-original: ser_recv(): programmer is not responding
+avrdude-original: stk500_recv(): programmer is not responding
+avrdude-original: stk500_getsync() attempt 10 of 10: not in sync: resp=0x00
+
+avrdude-original done.  Thank you.
+
+strace: |autoreset: Broken pipe
+pi@raspberrypi:~/.v2/arduino-firmware $
+
