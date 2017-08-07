@@ -3,15 +3,16 @@
 This guide will:
 
 1. Install the latest version of Raspbian and update
-2. Install and configure **AVR dude** to communicate and test the PiBot board.
-3. Give tips and hints on starting the learning
+2. Set up networking to the Raspberry Pi for remote login over both a terminal interface (via SSH) and a remote desktop (via tightVNC).
+3. Install and configure **AVR dude** to communicate and test the PiBot board.
+4. Give tips and hints on starting the learning
 
 ## 1 Install latest Raspian.
  The latest version is: **Raspian Jessie with Pixel**
 
-- **Version**:September 2016
-- **Release date**:2016-09-23
-- **Kernel version**:4.4
+- **Version**:July 2017
+- **Release date**:2017-07-05
+- **Kernel version**:4.9
 
 [Here](https://www.raspberrypi.org/documentation/installation/installing-images/) is the official guide for installing images.
 
@@ -20,11 +21,151 @@ Once you have a working Raspian OS on the Raspberry Pi and a working network con
 sudo apt-get update && sudo apt-get upgrade
 ```
 
+## 2 Remote User Interfacing with the Raspberry Pi 
+
+The first thing to do is to set up a re
+
+```
+ssh-keygen -t rsa -C harry@Harrys-MacBook-Pro
+```
+You will then be given a prompt to save the generated keys. Save it in the default location (/home/pi/.ssh/id_rsa) by just hitting Enter.
+
+
+cat ~/.ssh/id_rsa.pub | ssh <USERNAME>@<IP-ADDRESS> 'cat >> .ssh/authorized_keys'
+
+cat ~/.ssh/id_rsa.pub | ssh pi@192.168.15.4 'cat >> .ssh/authorized_keys'
+
+
+Remote desktop and command-line interfaces can be set up to access and control the Raspberry Pi remotely. This is the best way to control robots and means that we can eventually un-tether the system so that it can operate without any wire attachements whats-so-ever.  
+
+### Remote Desktop
+The Desktop interface of the Raspberry Pi can be accessed across a network by using a tecnhnology known as VNC (Virtual Network Computing).  In this example we will set up a VNC client on the Raspberry Pi's and access the desktops from an apple mac computer using its integrated remote desktop technology. Please see other guides for set up from windows and other linux machines ( https://www.raspberrypi.org/documentation/remote-access/vnc/
+
+)   
+
+Follow guide here:
+
+https://www.raspberrypi.org/forums/viewtopic.php?t=123457
+
+
+```
+sudo apt-get install tightvncserver
+```
+
+
+3. Create a new file /etc/systemd/system/vncserver@.service with the following contents:
+
+```
+sudo vim /etc/systemd/system/vncserver@.service
+```
+Then put in the file: 
+
+```
+[Unit]
+Description=Remote desktop service (VNC)
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=pi
+PAMName=login
+PIDFile=/home/pi/.vnc/%H:%i.pid
+ExecStartPre=-/usr/bin/vncserver -kill :%i > /dev/null 2>&1
+ExecStart=/usr/bin/vncserver -depth 24 -geometry 1280x800 :%i
+ExecStop=/usr/bin/vncserver -kill :%i
+
+[Install]
+WantedBy=multi-user.target
+```
+
+By default a cross is shown in the remote desktop instead of a cursor.  This can be changed to the familiar arrow by changing a line in a vnc config. file: 
+
+```
+sudo vim ~/.vnc/xstartup
+```
+
+The line to change is:
+```
+xsetroot -solid grey -cursor_name left_ptr
+```
+
+OK now the services can be reloaded for the changes to take effect
+
+
+```
+sudo systemctl daemon-reload && sudo systemctl enable vncserver@1.service
+sudo reboot
+```
+
+
+
+4. (Optional) Replace the parameters in the unit file, if you want to.
+5. Run
+
+
+
+### Remote Terminal Interface via SSH. 
+
+See here:
+https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md
+
+
+
+
 The sofware that we use to learn programming and control the robot is a modified version of the **Arduino IDE**. The next step is to install this.  
 
 ```
 sudo apt-get install arduino
 ```
+
+Then get avahi working and change the hostnames
+ 
+ ```
+ sudo vim /etc/hostname
+```
+
+and 
+```
+sudo vim /etc/hosts 
+```
+
+
+Change these and update by: 
+
+```
+sudo insserv avahi-daemon
+```
+
+```
+sudo vim /etc/avahi/services/multiple.service
+```
+
+```
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+        <name replace-wildcards="yes">%h</name>
+        <service>
+                <type>_device-info._tcp</type>
+                <port>0</port>
+                <txt-record>model=RackMac</txt-record>
+        </service>
+        <service>
+                <type>_ssh._tcp</type>
+                <port>22</port>
+        </service>
+</service-group>
+```
+
+
+The system can now be accessed acrossed the network without needing to know its IP address.  Therefore:
+```
+ssh pi@pibot-01.local
+```
+Works!
+
+
+
 
 
 ## 2  Communicating with the PiBot Board
