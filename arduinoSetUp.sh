@@ -34,7 +34,6 @@ then
   echo "avrdude customisation complete. Now setting up the boards.txt"
   wget https://github.com/pi-bot/.v2/blob/master/boards.txt
   wget https://github.com/pi-bot/.v2/blob/master/programmers.txt
-  mv programmers.txt programmers.txt.bak
   cd /usr/share/arduino/hardware/arduino
   mv boards.txt boards.txt.bak
   mv /tmp/boards.txt .
