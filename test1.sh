@@ -191,8 +191,7 @@ if [ -d "/home/pi/sketchbook/hardware/piBot" ]; then
     echo "sketchbook/hardware/piBot exists - skipping..."
 else
     mkdir /home/pi/sketchbook/hardware/piBot
-#    wget https://raw.githubusercontent.com/SpellFoundry/Sleepy-Pi-Setup/master/boards.txt
-cd /home/pi/bin/avrdude-rpi-1-master/
+    wget https://raw.githubusercontent.com/SpellFoundry/Sleepy-Pi-Setup/master/boards.txt
     mv boards.txt /home/pi/sketchbook/hardware/piBot
 fi
 
